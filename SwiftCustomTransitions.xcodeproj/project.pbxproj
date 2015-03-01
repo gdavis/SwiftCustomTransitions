@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		77D360FE1AA2AB47000B7B57 /* PopupAnimationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77D360FD1AA2AB47000B7B57 /* PopupAnimationController.swift */; };
+		77D361001AA2AD74000B7B57 /* PopupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77D360FF1AA2AD74000B7B57 /* PopupViewController.swift */; };
+		77D361021AA378D0000B7B57 /* CAAnimationBlocks.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77D361011AA378D0000B7B57 /* CAAnimationBlocks.swift */; };
 		77F80F3B1AA1641B00083B91 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77F80F3A1AA1641B00083B91 /* AppDelegate.swift */; };
 		77F80F3D1AA1641B00083B91 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77F80F3C1AA1641B00083B91 /* ViewController.swift */; };
 		77F80F401AA1641B00083B91 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 77F80F3E1AA1641B00083B91 /* Main.storyboard */; };
@@ -15,7 +18,7 @@
 		77F80F511AA1641B00083B91 /* SwiftCustomTransitionsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77F80F501AA1641B00083B91 /* SwiftCustomTransitionsTests.swift */; };
 		77F80F5B1AA1649900083B91 /* TransitionsTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77F80F5A1AA1649900083B91 /* TransitionsTableView.swift */; };
 		77F80F5D1AA1661800083B91 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77F80F5C1AA1661800083B91 /* DetailViewController.swift */; };
-		77F80F5F1AA16A7F00083B91 /* ZoomAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77F80F5E1AA16A7F00083B91 /* ZoomAnimation.swift */; };
+		77F80F5F1AA16A7F00083B91 /* ZoomAnimationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77F80F5E1AA16A7F00083B91 /* ZoomAnimationController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -29,6 +32,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		77D360FD1AA2AB47000B7B57 /* PopupAnimationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PopupAnimationController.swift; sourceTree = "<group>"; };
+		77D360FF1AA2AD74000B7B57 /* PopupViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PopupViewController.swift; sourceTree = "<group>"; };
+		77D361011AA378D0000B7B57 /* CAAnimationBlocks.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CAAnimationBlocks.swift; sourceTree = "<group>"; };
 		77F80F351AA1641B00083B91 /* SwiftCustomTransitions.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SwiftCustomTransitions.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		77F80F391AA1641B00083B91 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		77F80F3A1AA1641B00083B91 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -41,7 +47,7 @@
 		77F80F501AA1641B00083B91 /* SwiftCustomTransitionsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftCustomTransitionsTests.swift; sourceTree = "<group>"; };
 		77F80F5A1AA1649900083B91 /* TransitionsTableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransitionsTableView.swift; sourceTree = "<group>"; };
 		77F80F5C1AA1661800083B91 /* DetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
-		77F80F5E1AA16A7F00083B91 /* ZoomAnimation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZoomAnimation.swift; sourceTree = "<group>"; };
+		77F80F5E1AA16A7F00083B91 /* ZoomAnimationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZoomAnimationController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -87,7 +93,10 @@
 				77F80F3C1AA1641B00083B91 /* ViewController.swift */,
 				77F80F5A1AA1649900083B91 /* TransitionsTableView.swift */,
 				77F80F5C1AA1661800083B91 /* DetailViewController.swift */,
-				77F80F5E1AA16A7F00083B91 /* ZoomAnimation.swift */,
+				77D360FF1AA2AD74000B7B57 /* PopupViewController.swift */,
+				77F80F5E1AA16A7F00083B91 /* ZoomAnimationController.swift */,
+				77D360FD1AA2AB47000B7B57 /* PopupAnimationController.swift */,
+				77D361011AA378D0000B7B57 /* CAAnimationBlocks.swift */,
 				77F80F3E1AA1641B00083B91 /* Main.storyboard */,
 				77F80F411AA1641B00083B91 /* Images.xcassets */,
 				77F80F431AA1641B00083B91 /* LaunchScreen.xib */,
@@ -221,11 +230,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				77F80F5F1AA16A7F00083B91 /* ZoomAnimation.swift in Sources */,
+				77F80F5F1AA16A7F00083B91 /* ZoomAnimationController.swift in Sources */,
+				77D360FE1AA2AB47000B7B57 /* PopupAnimationController.swift in Sources */,
 				77F80F5B1AA1649900083B91 /* TransitionsTableView.swift in Sources */,
 				77F80F3D1AA1641B00083B91 /* ViewController.swift in Sources */,
+				77D361021AA378D0000B7B57 /* CAAnimationBlocks.swift in Sources */,
 				77F80F3B1AA1641B00083B91 /* AppDelegate.swift in Sources */,
 				77F80F5D1AA1661800083B91 /* DetailViewController.swift in Sources */,
+				77D361001AA2AD74000B7B57 /* PopupViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

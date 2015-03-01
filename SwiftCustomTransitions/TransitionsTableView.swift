@@ -10,19 +10,31 @@ import UIKit
 
 class TransitionsTableView: UITableViewController, UIViewControllerTransitioningDelegate
 {
-    internal enum ViewControllerIdentifiers : String {
-        case detail = "detailViewController"
+    var zoomAnimation: ZoomAnimationController?
+    var popupAnimation: PopupAnimationController?
+    
+    private enum ViewControllerIdentifiers : String {
+        case detail = "detailViewController", popup = "popupViewController"
     }
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         switch (indexPath.row) {
         case 0:
             
-            let detailVC = self.storyboard?.instantiateViewControllerWithIdentifier(ViewControllerIdentifiers.detail.rawValue) as! DetailViewController
+            let detailVC = self.storyboard!.instantiateViewControllerWithIdentifier(ViewControllerIdentifiers.detail.rawValue) as! UIViewController
             detailVC.transitioningDelegate = self
             detailVC.modalPresentationStyle = UIModalPresentationStyle.Custom
-            
             self.presentViewController(detailVC, animated: true, completion: nil)
+            
+            break
+            
+        case 1:
+            
+            let popupVC = self.storyboard!.instantiateViewControllerWithIdentifier(ViewControllerIdentifiers.popup.rawValue) as! UIViewController
+            popupVC.transitioningDelegate = self
+            popupVC.modalPresentationStyle = UIModalPresentationStyle.Custom
+            self.presentViewController(popupVC, animated: true, completion: nil)
+            
             break
             
         default:
@@ -34,11 +46,27 @@ class TransitionsTableView: UITableViewController, UIViewControllerTransitioning
     
     func animationControllerForPresentedController(presented: UIViewController, presentingController presenting: UIViewController, sourceController source: UIViewController) -> UIViewControllerAnimatedTransitioning?
     {
-        return ZoomAnimation(isReverseAnimation: false)
+        if presented.isKindOfClass(DetailViewController) {
+            self.zoomAnimation = ZoomAnimationController()
+            return self.zoomAnimation
+        }
+        else if presented.isKindOfClass(PopupViewController) {
+            self.popupAnimation = PopupAnimationController()
+            return self.popupAnimation
+        }
+        return nil
     }
     
     func animationControllerForDismissedController(dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning?
     {
-        return ZoomAnimation(isReverseAnimation: true)
+        if dismissed.isKindOfClass(DetailViewController) {
+            self.zoomAnimation?.reverseAnimation = true
+            return self.zoomAnimation
+        }
+        else if dismissed.isKindOfClass(PopupViewController) {
+            self.popupAnimation?.reverseAnimation = true
+            return self.popupAnimation
+        }
+        return nil
     }
 }

@@ -51,7 +51,7 @@
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="cHf-MO-7LF" id="jwp-e4-17x">
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="6PK-2g-SOI">
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Modal Presentation With Core Animation" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="6PK-2g-SOI">
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -73,6 +73,36 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aZs-fg-rR4" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="433" y="377"/>
+        </scene>
+        <!--Popup View Controller-->
+        <scene sceneID="2h5-do-cH6">
+            <objects>
+                <viewController storyboardIdentifier="popupViewController" id="Wy8-SW-PRQ" customClass="PopupViewController" customModule="SwiftCustomTransitions" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Auu-xR-Tub"/>
+                        <viewControllerLayoutGuide type="bottom" id="PDF-Yc-ikX"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="nIz-4Q-IUU">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Popup Text" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8Lu-R3-BXF">
+                                <rect key="frame" x="257" y="289" width="87" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="centerX" secondItem="8Lu-R3-BXF" secondAttribute="centerX" id="29U-ke-gS2"/>
+                            <constraint firstAttribute="centerY" secondItem="8Lu-R3-BXF" secondAttribute="centerY" constant="0.5" id="tOc-Xj-Jlg"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Ahb-4z-Qct" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1699" y="377"/>
         </scene>
         <!--Detail View Controller-->
         <scene sceneID="9Kt-ZW-6ng">

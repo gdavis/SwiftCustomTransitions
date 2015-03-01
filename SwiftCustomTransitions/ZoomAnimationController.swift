@@ -8,22 +8,22 @@
 
 import UIKit
 
-class ZoomAnimation: NSObject, UIViewControllerAnimatedTransitioning {
+class ZoomAnimationController: NSObject, UIViewControllerAnimatedTransitioning {
     
-    struct Zoom {
+    private struct Zoom {
         static let minimum: CGFloat = 0.7, maximum: CGFloat = 2.0
     }
-    let reverseAnimation: Bool
     
-    init(isReverseAnimation: Bool) {
-        self.reverseAnimation = isReverseAnimation
-        super.init()
-    }
-
+    var reverseAnimation: Bool = false
+    
+    
+    //MARK: - <UIViewControllerAnimatedTransitioning>
+    
     func transitionDuration(transitionContext: UIViewControllerContextTransitioning) -> NSTimeInterval
     {
         return 0.5
     }
+    
     
     // This method can only  be a nop if the transition is interactive and not a percentDriven interactive transition.
     func animateTransition(transitionContext: UIViewControllerContextTransitioning)
@@ -36,8 +36,10 @@ class ZoomAnimation: NSObject, UIViewControllerAnimatedTransitioning {
         }
     }
     
+    
     // This is a convenience and if implemented will be invoked by the system when the transition context's completeTransition: method is invoked.
     func animationEnded(transitionCompleted: Bool) {}
+    
     
     //MARK: - Animations
     
@@ -76,6 +78,7 @@ class ZoomAnimation: NSObject, UIViewControllerAnimatedTransitioning {
                 transitionContext.completeTransition(animationCompleted)
         }
     }
+    
     
     func animateOut(transitionContext: UIViewControllerContextTransitioning) {
         let tableViewController = transitionContext.viewControllerForKey(UITransitionContextToViewControllerKey)!
