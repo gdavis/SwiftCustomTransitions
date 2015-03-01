@@ -28,6 +28,8 @@ class TransitionsTableView: UITableViewController, UIViewControllerTransitioning
         default:
             break
         }
+        
+        tableView.deselectRowAtIndexPath(indexPath, animated: true)
     }
     
     func animationControllerForPresentedController(presented: UIViewController, presentingController presenting: UIViewController, sourceController source: UIViewController) -> UIViewControllerAnimatedTransitioning?
