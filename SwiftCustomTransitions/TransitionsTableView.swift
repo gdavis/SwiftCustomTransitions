@@ -10,9 +10,6 @@ import UIKit
 
 class TransitionsTableView: UITableViewController, UIViewControllerTransitioningDelegate
 {
-    var zoomAnimation: ZoomAnimationController?
-    var popupAnimation: PopupAnimationController?
-    
     private enum ViewControllerIdentifiers : String {
         case detail = "detailViewController", popup = "popupViewController"
     }
@@ -36,6 +33,10 @@ class TransitionsTableView: UITableViewController, UIViewControllerTransitioning
             self.presentViewController(popupVC, animated: true, completion: nil)
             
             break
+        
+        case 2:
+            
+            break
             
         default:
             break
@@ -44,27 +45,34 @@ class TransitionsTableView: UITableViewController, UIViewControllerTransitioning
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
     }
     
+    
+    //MARK: - <UIViewControllerTransitioningDelegate>
+    
+    lazy var zoomAnimation = ZoomAnimationController()
+    lazy var popupAnimation = PopupAnimationController()
+    
     func animationControllerForPresentedController(presented: UIViewController, presentingController presenting: UIViewController, sourceController source: UIViewController) -> UIViewControllerAnimatedTransitioning?
     {
         if presented.isKindOfClass(DetailViewController) {
-            self.zoomAnimation = ZoomAnimationController()
+            self.zoomAnimation.reverseAnimation = false
             return self.zoomAnimation
         }
         else if presented.isKindOfClass(PopupViewController) {
-            self.popupAnimation = PopupAnimationController()
+            self.popupAnimation.reverseAnimation = false
             return self.popupAnimation
         }
         return nil
     }
     
+    
     func animationControllerForDismissedController(dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning?
     {
         if dismissed.isKindOfClass(DetailViewController) {
-            self.zoomAnimation?.reverseAnimation = true
+            self.zoomAnimation.reverseAnimation = true
             return self.zoomAnimation
         }
         else if dismissed.isKindOfClass(PopupViewController) {
-            self.popupAnimation?.reverseAnimation = true
+            self.popupAnimation.reverseAnimation = true
             return self.popupAnimation
         }
         return nil

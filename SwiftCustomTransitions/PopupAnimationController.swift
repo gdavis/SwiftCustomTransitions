@@ -25,7 +25,7 @@ class PopupAnimationController: NSObject, UIViewControllerAnimatedTransitioning
         return 1.25
     }
     
-    // This method can only  be a nop if the transition is interactive and not a percentDriven interactive transition.
+    
     func animateTransition(transitionContext: UIViewControllerContextTransitioning)
     {
         if self.reverseAnimation {
@@ -40,12 +40,11 @@ class PopupAnimationController: NSObject, UIViewControllerAnimatedTransitioning
     func animateIn(transitionContext: UIViewControllerContextTransitioning)
     {
         let duration = self.transitionDuration(transitionContext)
-        
         let containerView = transitionContext.containerView()
-        containerView.addSubview(self.dimmerView)
-        
         let popupViewController = transitionContext.viewControllerForKey(UITransitionContextToViewControllerKey)!
         let popupView = popupViewController.view
+        
+        containerView.addSubview(self.dimmerView)
         popupView.frame = CGRect(origin: CGPointZero, size: popupViewController.preferredContentSize)
         popupView.center = containerView.center
         
@@ -92,15 +91,14 @@ class PopupAnimationController: NSObject, UIViewControllerAnimatedTransitioning
     func animateOut(transitionContext: UIViewControllerContextTransitioning)
     {
         let duration = self.transitionDuration(transitionContext)
-        
         let popupViewController = transitionContext.viewControllerForKey(UITransitionContextFromViewControllerKey)!
         let popupView = popupViewController.view
         
         let dimmerFadeAnimation = CABasicAnimation(keyPath: "opacity")
         dimmerFadeAnimation.fromValue = NSNumber(double: 1.0)
         dimmerFadeAnimation.toValue = NSNumber(double: 0)
-        dimmerFadeAnimation.duration = duration * 0.3
-        dimmerFadeAnimation.fillMode = kCAFillModeBoth
+        dimmerFadeAnimation.duration = duration * 0.4
+        dimmerFadeAnimation.fillMode = kCAFillModeForwards
         dimmerFadeAnimation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
         dimmerFadeAnimation.completionBlock = { (finished: Bool) -> Void in
             transitionContext.completeTransition(finished)
@@ -113,10 +111,10 @@ class PopupAnimationController: NSObject, UIViewControllerAnimatedTransitioning
         ]
         
         let transformAnimation = CAKeyframeAnimation(keyPath: "transform")
-        transformAnimation.duration = duration * 0.7
+        transformAnimation.duration = duration * 0.6
         transformAnimation.values = scaleValues
         transformAnimation.keyTimes = [0, 0.7, 1]
-        transformAnimation.fillMode = kCAFillModeBoth
+        transformAnimation.fillMode = kCAFillModeForwards
         transformAnimation.timingFunctions = [
             CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseOut),
             CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseIn),

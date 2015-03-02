@@ -14,8 +14,8 @@ extension CAAnimation {
     typealias CompletionBlock = ((finished: Bool) -> Void)
     
     private struct Blocks {
-        static var startBlocks: [CAAnimation: StartBlock] = Dictionary<CAAnimation, StartBlock>()
-        static var completionBlocks: [CAAnimation: CompletionBlock] = Dictionary<CAAnimation, CompletionBlock>()
+        static var startBlocks = Dictionary<CAAnimation, StartBlock>()
+        static var completionBlocks = Dictionary<CAAnimation, CompletionBlock>()
     }
     
     var startBlock: StartBlock? {

@@ -13,7 +13,6 @@ class PopupViewController: UIViewController
     override func viewDidLoad() {
         super.viewDidLoad()
         self.preferredContentSize = CGSize(width: 200, height: 100)
-        self.view.backgroundColor = UIColor.yellowColor()
         self.view.clipsToBounds = true
         self.view.layer.cornerRadius = 20
         self.view.layer.borderColor = UIColor.darkGrayColor().CGColor

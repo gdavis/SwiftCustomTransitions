@@ -51,7 +51,7 @@
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="cHf-MO-7LF" id="jwp-e4-17x">
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Modal Presentation With Core Animation" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="6PK-2g-SOI">
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Popup Animation" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="6PK-2g-SOI">
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -86,8 +86,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Popup Text" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8Lu-R3-BXF">
-                                <rect key="frame" x="257" y="289" width="87" height="21"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="tap to dismiss" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8Lu-R3-BXF">
+                                <rect key="frame" x="247" y="289" width="108" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
@@ -96,7 +96,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="centerX" secondItem="8Lu-R3-BXF" secondAttribute="centerX" id="29U-ke-gS2"/>
-                            <constraint firstAttribute="centerY" secondItem="8Lu-R3-BXF" secondAttribute="centerY" constant="0.5" id="tOc-Xj-Jlg"/>
+                            <constraint firstAttribute="centerY" secondItem="8Lu-R3-BXF" secondAttribute="centerY" id="tOc-Xj-Jlg"/>
                         </constraints>
                     </view>
                 </viewController>
@@ -119,8 +119,8 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cMv-sy-TFK">
                                 <rect key="frame" x="10" y="10" width="580" height="580"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tap to dismiss" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="89v-o7-97D">
-                                        <rect key="frame" x="12" y="11" width="560" height="29"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="tap to dismiss" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="89v-o7-97D">
+                                        <rect key="frame" x="12" y="275" width="560" height="29"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="24"/>
                                         <color key="textColor" red="0.72549021244049072" green="0.7882353663444519" blue="0.92941182851791382" alpha="1" colorSpace="deviceRGB"/>
                                         <nil key="highlightedColor"/>
@@ -128,7 +128,7 @@
                                 </subviews>
                                 <color key="backgroundColor" red="0.89086485745614019" green="0.93624931469298234" blue="0.97739343475877183" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
-                                    <constraint firstItem="89v-o7-97D" firstAttribute="top" secondItem="cMv-sy-TFK" secondAttribute="top" constant="11" id="CCX-Qo-s8Q"/>
+                                    <constraint firstAttribute="centerY" secondItem="89v-o7-97D" secondAttribute="centerY" constant="0.5" id="1Sa-9G-jwA"/>
                                     <constraint firstAttribute="trailing" secondItem="89v-o7-97D" secondAttribute="trailing" constant="8" id="In2-Be-7DW"/>
                                     <constraint firstItem="89v-o7-97D" firstAttribute="leading" secondItem="cMv-sy-TFK" secondAttribute="leading" constant="12" id="Yva-E1-pUo"/>
                                 </constraints>
