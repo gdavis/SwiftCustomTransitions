@@ -10,8 +10,9 @@
 		77D360FE1AA2AB47000B7B57 /* PopupAnimationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77D360FD1AA2AB47000B7B57 /* PopupAnimationController.swift */; };
 		77D361001AA2AD74000B7B57 /* PopupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77D360FF1AA2AD74000B7B57 /* PopupViewController.swift */; };
 		77D361021AA378D0000B7B57 /* CAAnimationBlocks.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77D361011AA378D0000B7B57 /* CAAnimationBlocks.swift */; };
+		77EC4A5D1AD1A81B0009CA9F /* CubeAnimationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77EC4A5C1AD1A81B0009CA9F /* CubeAnimationController.swift */; };
+		77EC4A621AD1AD960009CA9F /* CubeDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77EC4A611AD1AD960009CA9F /* CubeDetailViewController.swift */; };
 		77F80F3B1AA1641B00083B91 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77F80F3A1AA1641B00083B91 /* AppDelegate.swift */; };
-		77F80F3D1AA1641B00083B91 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77F80F3C1AA1641B00083B91 /* ViewController.swift */; };
 		77F80F401AA1641B00083B91 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 77F80F3E1AA1641B00083B91 /* Main.storyboard */; };
 		77F80F421AA1641B00083B91 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 77F80F411AA1641B00083B91 /* Images.xcassets */; };
 		77F80F451AA1641B00083B91 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 77F80F431AA1641B00083B91 /* LaunchScreen.xib */; };
@@ -35,10 +36,11 @@
 		77D360FD1AA2AB47000B7B57 /* PopupAnimationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PopupAnimationController.swift; sourceTree = "<group>"; };
 		77D360FF1AA2AD74000B7B57 /* PopupViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PopupViewController.swift; sourceTree = "<group>"; };
 		77D361011AA378D0000B7B57 /* CAAnimationBlocks.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CAAnimationBlocks.swift; sourceTree = "<group>"; };
+		77EC4A5C1AD1A81B0009CA9F /* CubeAnimationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CubeAnimationController.swift; sourceTree = "<group>"; };
+		77EC4A611AD1AD960009CA9F /* CubeDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CubeDetailViewController.swift; sourceTree = "<group>"; };
 		77F80F351AA1641B00083B91 /* SwiftCustomTransitions.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SwiftCustomTransitions.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		77F80F391AA1641B00083B91 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		77F80F3A1AA1641B00083B91 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		77F80F3C1AA1641B00083B91 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		77F80F3F1AA1641B00083B91 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		77F80F411AA1641B00083B91 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		77F80F441AA1641B00083B91 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
@@ -68,6 +70,35 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		77EC4A5E1AD1A8250009CA9F /* Transitions */ = {
+			isa = PBXGroup;
+			children = (
+				77EC4A5C1AD1A81B0009CA9F /* CubeAnimationController.swift */,
+				77F80F5E1AA16A7F00083B91 /* ZoomAnimationController.swift */,
+				77D360FD1AA2AB47000B7B57 /* PopupAnimationController.swift */,
+			);
+			name = Transitions;
+			sourceTree = "<group>";
+		};
+		77EC4A5F1AD1A8300009CA9F /* View Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				77F80F5A1AA1649900083B91 /* TransitionsTableView.swift */,
+				77F80F5C1AA1661800083B91 /* DetailViewController.swift */,
+				77D360FF1AA2AD74000B7B57 /* PopupViewController.swift */,
+				77EC4A611AD1AD960009CA9F /* CubeDetailViewController.swift */,
+			);
+			name = "View Controllers";
+			sourceTree = "<group>";
+		};
+		77EC4A601AD1A8420009CA9F /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				77D361011AA378D0000B7B57 /* CAAnimationBlocks.swift */,
+			);
+			name = Extensions;
+			sourceTree = "<group>";
+		};
 		77F80F2C1AA1641B00083B91 = {
 			isa = PBXGroup;
 			children = (
@@ -90,13 +121,9 @@
 			isa = PBXGroup;
 			children = (
 				77F80F3A1AA1641B00083B91 /* AppDelegate.swift */,
-				77F80F3C1AA1641B00083B91 /* ViewController.swift */,
-				77F80F5A1AA1649900083B91 /* TransitionsTableView.swift */,
-				77F80F5C1AA1661800083B91 /* DetailViewController.swift */,
-				77D360FF1AA2AD74000B7B57 /* PopupViewController.swift */,
-				77F80F5E1AA16A7F00083B91 /* ZoomAnimationController.swift */,
-				77D360FD1AA2AB47000B7B57 /* PopupAnimationController.swift */,
-				77D361011AA378D0000B7B57 /* CAAnimationBlocks.swift */,
+				77EC4A5F1AD1A8300009CA9F /* View Controllers */,
+				77EC4A5E1AD1A8250009CA9F /* Transitions */,
+				77EC4A601AD1A8420009CA9F /* Extensions */,
 				77F80F3E1AA1641B00083B91 /* Main.storyboard */,
 				77F80F411AA1641B00083B91 /* Images.xcassets */,
 				77F80F431AA1641B00083B91 /* LaunchScreen.xib */,
@@ -230,11 +257,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				77EC4A5D1AD1A81B0009CA9F /* CubeAnimationController.swift in Sources */,
 				77F80F5F1AA16A7F00083B91 /* ZoomAnimationController.swift in Sources */,
 				77D360FE1AA2AB47000B7B57 /* PopupAnimationController.swift in Sources */,
 				77F80F5B1AA1649900083B91 /* TransitionsTableView.swift in Sources */,
-				77F80F3D1AA1641B00083B91 /* ViewController.swift in Sources */,
 				77D361021AA378D0000B7B57 /* CAAnimationBlocks.swift in Sources */,
+				77EC4A621AD1AD960009CA9F /* CubeDetailViewController.swift in Sources */,
 				77F80F3B1AA1641B00083B91 /* AppDelegate.swift in Sources */,
 				77F80F5D1AA1661800083B91 /* DetailViewController.swift in Sources */,
 				77D361001AA2AD74000B7B57 /* PopupViewController.swift in Sources */,
@@ -362,10 +390,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				INFOPLIST_FILE = SwiftCustomTransitions/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
@@ -373,6 +403,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				INFOPLIST_FILE = SwiftCustomTransitions/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
