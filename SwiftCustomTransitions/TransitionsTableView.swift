@@ -140,13 +140,16 @@ class TransitionsTableView: UITableViewController, UIViewControllerTransitioning
             break
         }
         
+        self.cubeAnimation.interactivePopGestureRecognizer = navigationController.interactivePopGestureRecognizer
+        
         return self.cubeAnimation
     }
     
     func navigationController(navigationController: UINavigationController, interactionControllerForAnimationController animationController: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning?
     {
-        
-//        return self.cubeAnimation
+        if self.cubeAnimation.interactive {
+            return self.cubeAnimation
+        }
         return nil
     }
 }
