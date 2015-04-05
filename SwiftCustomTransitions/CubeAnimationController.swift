@@ -10,6 +10,10 @@ import UIKit
 
 class CubeAnimationController: NSObject, UIViewControllerAnimatedTransitioning, UIViewControllerInteractiveTransitioning {
 
+    static let AnchorPointZ: CGFloat = -188
+    static let Projection: CGFloat = 1.0 / -600
+    static let Rotation: CGFloat = CGFloat(M_PI_2)
+    static let Duration: CFTimeInterval = 1.0
     
     var reverseAnimation: Bool = false
     
@@ -73,60 +77,87 @@ class CubeAnimationController: NSObject, UIViewControllerAnimatedTransitioning, 
         
         let sourceView = fromViewController.view
         let destinationView = toViewController.view
-        
         let containerView: UIView = transitionContext.containerView()
         
         // since the detail view was just built, it needs to be added to the view heirarchy
         containerView.addSubview(destinationView)
         destinationView.frame = containerView.bounds
         
-        let containerWidth = CGRectGetWidth(containerView.bounds)
-        let anchorPointZ: CGFloat = -188
-        let rotation: CGFloat = CGFloat(M_PI_2)
-        let projection: CGFloat = 1.0 / -600
-        let duration: CFTimeInterval = 1.0
-        
         // setup container view with perspective for child layers
         
         var containerTransform = CATransform3DIdentity
-        containerTransform.m34 = projection
+        containerTransform.m34 = CubeAnimationController.Projection
         containerView.layer.sublayerTransform = containerTransform
         
+        // add animations
         
-        // source view animations
-        
-        let sourceViewToTransform = CATransform3DMakeRotation(-rotation, 0.0, 1.0, 0.0)
-        let sourceViewTransformAnimation = CABasicAnimation(keyPath: "transform")
-        sourceViewTransformAnimation.fromValue = NSValue(CATransform3D: CATransform3DIdentity)
-        sourceViewTransformAnimation.toValue = NSValue(CATransform3D: sourceViewToTransform)
-        sourceViewTransformAnimation.duration = duration
-        sourceViewTransformAnimation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
-        sourceViewTransformAnimation.completionBlock = { (finished: Bool) -> Void in
-            transitionContext.completeTransition(true)
+        let fromViewAnimation = self.createCubeTransformAnimation(-CubeAnimationController.Rotation, view: sourceView, presenting: false)
+        let toViewAnimation = self.createCubeTransformAnimation(CubeAnimationController.Rotation, view: destinationView, presenting: true)
+        toViewAnimation.completionBlock = { (success: Bool) -> Void in
+            transitionContext.completeTransition(success)
         }
-        sourceView.layer.zPosition = anchorPointZ
-        sourceView.layer.anchorPointZ = anchorPointZ
-        sourceView.layer.addAnimation(sourceViewTransformAnimation, forKey: "cubeFromViewAnimation")
         
-
-        // destination view animations
-        
-        let destinationViewFromTransform = CATransform3DMakeRotation(rotation, 0.0, 1.0, 0.0)
-        let toViewTransformAnimation = CABasicAnimation(keyPath: "transform")
-        toViewTransformAnimation.fromValue = NSValue(CATransform3D: destinationViewFromTransform)
-        toViewTransformAnimation.toValue = NSValue(CATransform3D: CATransform3DIdentity)
-        toViewTransformAnimation.duration = duration
-        toViewTransformAnimation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
-        
-        destinationView.layer.zPosition = anchorPointZ
-        destinationView.layer.anchorPointZ = anchorPointZ
-        destinationView.layer.addAnimation(toViewTransformAnimation, forKey: "cubeToVewAnimation")
+        sourceView.layer.addAnimation(fromViewAnimation, forKey: "fromViewCubeAnimation")
+        destinationView.layer.addAnimation(toViewAnimation, forKey: "toViewCubeAnimation")
     }
+
     
     
     func animateOut(transitionContext: UIViewControllerContextTransitioning)
     {
+        let fromViewController = transitionContext.viewControllerForKey(UITransitionContextFromViewControllerKey)!
+        let toViewController = transitionContext.viewControllerForKey(UITransitionContextToViewControllerKey)!
         
+        let sourceView = fromViewController.view
+        let destinationView = toViewController.view
+        let containerView: UIView = transitionContext.containerView()
+        
+        // since the detail view was just built, it needs to be added to the view heirarchy
+        containerView.addSubview(destinationView)
+        destinationView.frame = containerView.bounds
+        
+        // setup container view with perspective for child layers
+        
+        var containerTransform = CATransform3DIdentity
+        containerTransform.m34 = CubeAnimationController.Projection
+        containerView.layer.sublayerTransform = containerTransform
+        
+        // add animations
+        
+        let fromViewAnimation = self.createCubeTransformAnimation(CubeAnimationController.Rotation, view: sourceView, presenting: false)
+        let toViewAnimation = self.createCubeTransformAnimation(-CubeAnimationController.Rotation, view: destinationView, presenting: true)
+        
+        toViewAnimation.completionBlock = { (success: Bool) -> Void in
+            transitionContext.completeTransition(success)
+        }
+        
+        sourceView.layer.addAnimation(fromViewAnimation, forKey: "fromViewCubeAnimation")
+        destinationView.layer.addAnimation(toViewAnimation, forKey: "toViewCubeAnimation")
+    }
+    
+    
+    func createCubeTransformAnimation(rotation: CGFloat, view: UIView, presenting: Bool) -> CABasicAnimation
+    {
+        let viewFromTransform = CATransform3DMakeRotation(rotation, 0.0, 1.0, 0.0)
+        let transformAnimation = CABasicAnimation(keyPath: "transform")
+        
+        if presenting {
+            transformAnimation.fromValue = NSValue(CATransform3D: viewFromTransform)
+            transformAnimation.toValue = NSValue(CATransform3D: CATransform3DIdentity)
+        }
+        else
+        {
+            transformAnimation.fromValue = NSValue(CATransform3D: CATransform3DIdentity)
+            transformAnimation.toValue = NSValue(CATransform3D: viewFromTransform)
+        }
+        
+        transformAnimation.duration = CubeAnimationController.Duration
+        transformAnimation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
+        
+        view.layer.zPosition = CubeAnimationController.AnchorPointZ
+        view.layer.anchorPointZ = CubeAnimationController.AnchorPointZ
+        
+        return transformAnimation
     }
     
     

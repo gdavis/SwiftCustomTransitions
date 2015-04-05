@@ -129,6 +129,17 @@ class TransitionsTableView: UITableViewController, UIViewControllerTransitioning
     
     func navigationController(navigationController: UINavigationController, animationControllerForOperation operation: UINavigationControllerOperation, fromViewController fromVC: UIViewController, toViewController toVC: UIViewController) -> UIViewControllerAnimatedTransitioning?
     {
+        switch (operation) {
+
+        case .Pop:
+            self.cubeAnimation.reverseAnimation = true
+            break
+            
+        default:
+            self.cubeAnimation.reverseAnimation = false
+            break
+        }
+        
         return self.cubeAnimation
     }
     
