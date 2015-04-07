@@ -121,12 +121,10 @@
 			isa = PBXGroup;
 			children = (
 				77F80F3A1AA1641B00083B91 /* AppDelegate.swift */,
+				77F80F3E1AA1641B00083B91 /* Main.storyboard */,
 				77EC4A5F1AD1A8300009CA9F /* View Controllers */,
 				77EC4A5E1AD1A8250009CA9F /* Transitions */,
 				77EC4A601AD1A8420009CA9F /* Extensions */,
-				77F80F3E1AA1641B00083B91 /* Main.storyboard */,
-				77F80F411AA1641B00083B91 /* Images.xcassets */,
-				77F80F431AA1641B00083B91 /* LaunchScreen.xib */,
 				77F80F381AA1641B00083B91 /* Supporting Files */,
 			);
 			path = SwiftCustomTransitions;
@@ -135,6 +133,8 @@
 		77F80F381AA1641B00083B91 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				77F80F411AA1641B00083B91 /* Images.xcassets */,
+				77F80F431AA1641B00083B91 /* LaunchScreen.xib */,
 				77F80F391AA1641B00083B91 /* Info.plist */,
 			);
 			name = "Supporting Files";
