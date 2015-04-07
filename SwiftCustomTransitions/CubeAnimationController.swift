@@ -52,8 +52,8 @@ class CubeAnimationController: UIPercentDrivenInteractiveTransition, UIViewContr
         self.setupScene(containerView, sourceView: sourceView, destinationView: destinationView)
         
         // add animations
-        var sourceViewAnimation: CAAnimation
-        var destinationViewAnimation: CAAnimation
+        var sourceViewAnimation: CABasicAnimation
+        var destinationViewAnimation: CABasicAnimation
         
         if self.reverseAnimation {
             sourceViewAnimation = self.createCubeTransformAnimation(Rotation, view: sourceView, presenting: false)
@@ -68,13 +68,26 @@ class CubeAnimationController: UIPercentDrivenInteractiveTransition, UIViewContr
             transitionContext.completeTransition(success && !transitionContext.transitionWasCancelled())
         }
         
-        sourceView.layer.addAnimation(sourceViewAnimation, forKey: "sourceViewCubeAnimation")
-        destinationView.layer.addAnimation(destinationViewAnimation, forKey: "destinationViewCubeAnimation")
+        sourceView.layer.addAnimation(sourceViewAnimation, forKey: sourceViewAnimation.keyPath)
+        destinationView.layer.addAnimation(destinationViewAnimation, forKey: destinationViewAnimation.keyPath)
     }
     
     
     func animationEnded(transitionCompleted: Bool)
     {
+        let transitionContext = self.transitionContext!
+        let fromViewController = transitionContext.viewControllerForKey(UITransitionContextFromViewControllerKey)!
+        let toViewController = transitionContext.viewControllerForKey(UITransitionContextToViewControllerKey)!
+        
+        let containerView = transitionContext.containerView()
+        let sourceView = fromViewController.view
+        let destinationView = toViewController.view
+        
+        if transitionCompleted == false {
+            sourceView.layer.transform = CATransform3DIdentity
+            destinationView.removeFromSuperview()
+        }
+        
         self.transitionContext = nil
         self.interactive = false
         self.interactivePopGestureRecognizer = nil
@@ -104,14 +117,33 @@ class CubeAnimationController: UIPercentDrivenInteractiveTransition, UIViewContr
     }
     
     
+    
+    override func cancelInteractiveTransition() {
+        super.cancelInteractiveTransition()
+        
+        let transitionContext = self.transitionContext!
+        let fromViewController = transitionContext.viewControllerForKey(UITransitionContextFromViewControllerKey)!
+        let toViewController = transitionContext.viewControllerForKey(UITransitionContextToViewControllerKey)!
+        
+        let sourceView = fromViewController.view
+        let destinationView = toViewController.view
+        
+        let sourceViewAnimation = sourceView.layer.animationForKey("transform") as! CABasicAnimation
+        let destinationViewAnimation = destinationView.layer.animationForKey("transform") as! CABasicAnimation
+        
+        sourceView.layer.transform = (sourceViewAnimation.fromValue as! NSValue).CATransform3DValue
+        destinationView.layer.transform = (destinationViewAnimation.fromValue as! NSValue).CATransform3DValue
+    }
+    
+    
     //MARK: - Gesture Recognizer
     // this gesture is owned by the UINavigationController and is used to update the transition
     // animation as the user pans across the screen. we become the delegate and respond to its
     // actions in order to use the gesture for the transition.
     var interactivePopGestureRecognizer: UIGestureRecognizer? {
         didSet {
-            self.interactivePopGestureRecognizer?.addTarget(self, action: "screenEdgeDidPan:")
             self.interactivePopGestureRecognizer?.delegate = self
+            self.interactivePopGestureRecognizer?.addTarget(self, action: "screenEdgeDidPan:")
         }
     }
     
@@ -169,7 +201,7 @@ class CubeAnimationController: UIPercentDrivenInteractiveTransition, UIViewContr
     func animateToPercentComplete(percent: CGFloat)
     {
         if self.animationTimer == nil {
-            self.animationTimer = NSTimer.scheduledTimerWithTimeInterval(1/60, target: self, selector: "adjustProgress:", userInfo: Float(percent), repeats: true)
+            self.animationTimer = NSTimer.scheduledTimerWithTimeInterval(1/60, target: self, selector: "adjustPercentComplete:", userInfo: Float(percent), repeats: true)
         }
     }
     
@@ -181,14 +213,14 @@ class CubeAnimationController: UIPercentDrivenInteractiveTransition, UIViewContr
     }
     
     
-    func adjustProgress(timer: NSTimer)
+    func adjustPercentComplete(timer: NSTimer)
     {
         let targetPercent = timer.userInfo as! CGFloat
-        let delta = (targetPercent - self.percentComplete) * 0.05
+        let delta = (targetPercent - self.percentComplete) * 0.075
         
         self.updateInteractiveTransition(self.percentComplete + delta)
         
-        if abs(delta) < 0.002 {
+        if abs(delta) < 0.001 {
             
             self.stopAnimationTimer()
             
@@ -207,11 +239,13 @@ class CubeAnimationController: UIPercentDrivenInteractiveTransition, UIViewContr
     func setupScene(containerView: UIView, sourceView: UIView, destinationView: UIView)
     {
         // setup the 3D scene by setting perspective in the container and configuring the view positions
+        // https://developer.apple.com/library/mac/documentation/Cocoa/Conceptual/CoreAnimation_guide/AdvancedAnimationTricks/AdvancedAnimationTricks.html#//apple_ref/doc/uid/TP40004514-CH8-SW13
         var containerTransform = CATransform3DIdentity
         containerTransform.m34 = Projection
         containerView.layer.sublayerTransform = containerTransform
         
-        // calculate the z-distance as a ratio of the width of the container to keep edges aligned
+        // calculate the z-distance as a ratio of the width of the container. 
+        // this keeps the edges of the cube sides aligned when rotating
         let z = -(0.5 * CGRectGetWidth(self.transitionContext!.containerView().frame))
         sourceView.layer.zPosition = z
         sourceView.layer.anchorPointZ = z
@@ -228,10 +262,12 @@ class CubeAnimationController: UIPercentDrivenInteractiveTransition, UIViewContr
         if presenting {
             transformAnimation.fromValue = NSValue(CATransform3D: viewFromTransform)
             transformAnimation.toValue = NSValue(CATransform3D: CATransform3DIdentity)
+            view.layer.transform = CATransform3DIdentity
         }
         else {
             transformAnimation.fromValue = NSValue(CATransform3D: CATransform3DIdentity)
             transformAnimation.toValue = NSValue(CATransform3D: viewFromTransform)
+            view.layer.transform = viewFromTransform
         }
         
         transformAnimation.duration = Duration
