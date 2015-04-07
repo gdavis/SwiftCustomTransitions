@@ -14,79 +14,22 @@ class CubeAnimationController: UIPercentDrivenInteractiveTransition, UIViewContr
     static let Projection: CGFloat = 1.0 / -600
     static let Rotation: CGFloat = CGFloat(M_PI_2)
     static let Duration: CFTimeInterval = 0.75
+    static let SourceViewAnimationKey: String = "SourceViewAnimationKey"
+    static let DestinationViewAnimationKey: String = "DestinationViewAnimationKey"
     
     var reverseAnimation: Bool = false
     var interactive: Bool = false
     var startTouchPoint: CGPoint?
     var animationTimer: NSTimer?
+    var transitionContext: UIViewControllerContextTransitioning?
     
-    var interactiveContainerView: UIView?
-    var sourceView: UIView?
-    var destinationView: UIView?
     
+    //MARK: - Setup
     
     override init() {
         super.init()
         self.completionSpeed = 1.0
         self.completionCurve = UIViewAnimationCurve.EaseInOut
-    }
-    
-    
-    //MARK: - Gesture Recognizer
-    
-    var interactivePopGestureRecognizer: UIGestureRecognizer? {
-        didSet {
-            self.interactivePopGestureRecognizer?.addTarget(self, action: "screenEdgeDidPan:")
-            self.interactivePopGestureRecognizer?.delegate = self
-        }
-    }
-    
-    
-    func gestureRecognizerShouldBegin(gestureRecognizer: UIGestureRecognizer) -> Bool
-    {
-        if self.animationTimer != nil {
-            return false
-        }
-        self.interactive = true
-        return true
-    }
-    
-    
-    func screenEdgeDidPan(gesture: UIGestureRecognizer)
-    {
-        
-        if let containerView = self.interactiveContainerView {
-            
-            let touchPoint = gesture.locationInView(containerView)
-            let progress = touchPoint.x / CGRectGetWidth(containerView.frame)
-            
-            switch (gesture.state) {
-                
-            case .Ended, .Cancelled:
-                if progress > 0.5 {
-                    self.animateToProgress(1.0)
-                }
-                else {
-                    self.animateToProgress(0.0)
-                }
-                break
-                
-            case .Changed:
-                self.updateInteractiveTransition(progress)
-                
-                if self.reverseAnimation == false && progress >= 0.75 {
-                    self.finishInteractiveTransition()
-                }
-                else if self.reverseAnimation && progress >= 0.95 {
-                    self.finishInteractiveTransition()
-                }
-                
-                break
-                
-            default:
-                break
-            }
-        }
     }
     
     
@@ -128,28 +71,29 @@ class CubeAnimationController: UIPercentDrivenInteractiveTransition, UIViewContr
         }
         
         toViewAnimation.completionBlock = { (success: Bool) -> Void in
-            
             transitionContext.completeTransition(success && !transitionContext.transitionWasCancelled())
-            
-            self.resetScene(self.interactiveContainerView, sourceView: self.sourceView, destinationView: self.destinationView)
         }
         
-        sourceView.layer.addAnimation(fromViewAnimation, forKey: "fromViewCubeAnimation")
-        destinationView.layer.addAnimation(toViewAnimation, forKey: "toViewCubeAnimation")
+        sourceView.layer.addAnimation(fromViewAnimation, forKey: CubeAnimationController.SourceViewAnimationKey)
+        destinationView.layer.addAnimation(toViewAnimation, forKey: CubeAnimationController.DestinationViewAnimationKey)
     }
     
     
     func animationEnded(transitionCompleted: Bool)
     {
-        self.sourceView?.layer.removeAllAnimations()
-        self.destinationView?.layer.removeAllAnimations()
-        
-        self.interactivePopGestureRecognizer = nil
+        if let transitionContext = self.transitionContext {
+            
+            let fromViewController = transitionContext.viewControllerForKey(UITransitionContextFromViewControllerKey)!
+            let toViewController = transitionContext.viewControllerForKey(UITransitionContextToViewControllerKey)!
+            let sourceView = fromViewController.view
+            let destinationView = toViewController.view
+            sourceView.layer.removeAllAnimations()
+            destinationView.layer.removeAllAnimations()
+        }
+
+        self.transitionContext = nil
         self.interactive = false
-        
-        self.interactiveContainerView = nil
-        self.sourceView = nil
-        self.destinationView = nil
+        self.interactivePopGestureRecognizer = nil
     }
 
 
@@ -161,9 +105,10 @@ class CubeAnimationController: UIPercentDrivenInteractiveTransition, UIViewContr
         
         let fromViewController = transitionContext.viewControllerForKey(UITransitionContextFromViewControllerKey)!
         let toViewController = transitionContext.viewControllerForKey(UITransitionContextToViewControllerKey)!
+        
+        let containerView = transitionContext.containerView()
         let sourceView = fromViewController.view
         let destinationView = toViewController.view
-        let containerView = transitionContext.containerView()
         
         // since the detail view was just built, it needs to be added to the view heirarchy
         containerView.addSubview(destinationView)
@@ -172,11 +117,67 @@ class CubeAnimationController: UIPercentDrivenInteractiveTransition, UIViewContr
         // setup the 3D scene by setting perspective in the container and configurin the view positions
         self.setupScene(containerView, sourceView: sourceView, destinationView: destinationView)
         
-        self.interactiveContainerView = containerView
-        self.sourceView = sourceView
-        self.destinationView = destinationView
-        
+        // store references
+        self.transitionContext = transitionContext
         self.startTouchPoint = self.interactivePopGestureRecognizer?.locationInView(containerView)
+    }
+    
+    
+    //MARK: - Gesture Recognizer
+    
+    var interactivePopGestureRecognizer: UIGestureRecognizer? {
+        didSet {
+            self.interactivePopGestureRecognizer?.addTarget(self, action: "screenEdgeDidPan:")
+            self.interactivePopGestureRecognizer?.delegate = self
+        }
+    }
+    
+    
+    func gestureRecognizerShouldBegin(gestureRecognizer: UIGestureRecognizer) -> Bool
+    {
+        if self.animationTimer != nil {
+            return false
+        }
+        self.interactive = true
+        return true
+    }
+    
+    
+    func screenEdgeDidPan(gesture: UIGestureRecognizer)
+    {
+        
+        if let transitionContext = self.transitionContext {
+            
+            let containerView = transitionContext.containerView()
+            let touchPoint = gesture.locationInView(containerView)
+            let progress = touchPoint.x / CGRectGetWidth(containerView.frame)
+            
+            switch (gesture.state) {
+                
+            case .Changed:
+                self.updateInteractiveTransition(progress)
+                
+                if self.reverseAnimation == false && progress >= 0.75 {
+                    self.finishInteractiveTransition()
+                }
+                else if self.reverseAnimation && progress >= 0.95 {
+                    self.finishInteractiveTransition()
+                }
+                break
+                
+            case .Ended, .Cancelled:
+                if progress > 0.5 {
+                    self.animateToProgress(1.0)
+                }
+                else {
+                    self.animateToProgress(0.0)
+                }
+                break
+                
+            default:
+                break
+            }
+        }
     }
     
     
@@ -214,6 +215,13 @@ class CubeAnimationController: UIPercentDrivenInteractiveTransition, UIViewContr
     }
     
     
+    func stopAnimationTimer()
+    {
+        self.animationTimer?.invalidate()
+        self.animationTimer = nil
+    }
+    
+    
     func adjustProgress(timer: NSTimer)
     {
         let targetPercent = timer.userInfo as! CGFloat
@@ -230,8 +238,7 @@ class CubeAnimationController: UIPercentDrivenInteractiveTransition, UIViewContr
                 self.cancelInteractiveTransition()
             }
             
-            self.animationTimer?.invalidate()
-            self.animationTimer = nil
+            self.stopAnimationTimer()
         }
     }
     
@@ -250,19 +257,5 @@ class CubeAnimationController: UIPercentDrivenInteractiveTransition, UIViewContr
         
         destinationView.layer.zPosition = CubeAnimationController.AnchorPointZ
         destinationView.layer.anchorPointZ = CubeAnimationController.AnchorPointZ
-    }
-    
-    
-    func resetScene(containerView: UIView?, sourceView: UIView?, destinationView: UIView?)
-    {
-        containerView?.layer.sublayerTransform = CATransform3DIdentity
-        
-        sourceView?.layer.transform = CATransform3DIdentity
-        sourceView?.layer.zPosition = 0
-        sourceView?.layer.anchorPointZ = 0
-        
-        destinationView?.layer.transform = CATransform3DIdentity
-        destinationView?.layer.zPosition = 0
-        destinationView?.layer.anchorPointZ = 0
     }
 }
