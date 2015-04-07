@@ -20,7 +20,7 @@
             </objects>
             <point key="canvasLocation" x="-259" y="377"/>
         </scene>
-        <!--Transitions Table View-->
+        <!--Custom Transitions-->
         <scene sceneID="lCq-5f-17w">
             <objects>
                 <tableViewController id="Udr-yJ-Zhd" customClass="TransitionsTableView" customModule="SwiftCustomTransitions" customModuleProvider="target" sceneMemberID="viewController">
@@ -81,7 +81,7 @@
                             <outlet property="delegate" destination="Udr-yJ-Zhd" id="g0q-JD-syw"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="MWC-WL-pRO"/>
+                    <navigationItem key="navigationItem" title="Custom Transitions" id="MWC-WL-pRO"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aZs-fg-rR4" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -115,7 +115,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ahb-4z-Qct" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1699" y="377"/>
+            <point key="canvasLocation" x="91" y="1089"/>
         </scene>
         <!--Detail View Controller-->
         <scene sceneID="9Kt-ZW-6ng">
@@ -162,12 +162,12 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="RWq-0E-dB9" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1075" y="377"/>
+            <point key="canvasLocation" x="-583" y="1089"/>
         </scene>
-        <!--Cube Detail View Controller-->
+        <!--Cube Animation-->
         <scene sceneID="QgA-K3-pqZ">
             <objects>
-                <viewController storyboardIdentifier="cubeDetailViewController" id="Ybi-A2-hSs" customClass="CubeDetailViewController" customModule="SwiftCustomTransitions" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="cubeDetailViewController" title="Cube Animation" id="Ybi-A2-hSs" customClass="CubeDetailViewController" customModule="SwiftCustomTransitions" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="rXf-Wi-f1N"/>
                         <viewControllerLayoutGuide type="bottom" id="QTg-wL-P4b"/>
@@ -192,7 +192,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sU6-Yp-WAe" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1699" y="1028"/>
+            <point key="canvasLocation" x="771" y="1089"/>
         </scene>
     </scenes>
 </document>
