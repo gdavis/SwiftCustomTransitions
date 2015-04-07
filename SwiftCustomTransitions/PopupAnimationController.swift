@@ -49,16 +49,17 @@ class PopupAnimationController: NSObject, UIViewControllerAnimatedTransitioning
         popupView.center = containerView.center
         
         let scaleValues: [NSValue] = [
-            NSValue(CATransform3D: CATransform3DMakeScale(0, 0, 1.0)),
-            NSValue(CATransform3D: CATransform3DMakeScale(1.2, 1.2, 1.0)),
-            NSValue(CATransform3D: CATransform3DMakeScale(0.9, 0.9, 1.0)),
+            NSValue(CATransform3D: CATransform3DMakeScale(0, 0, 1)),
+            NSValue(CATransform3D: CATransform3DMakeScale(1.2, 1.2, 1)),
+            NSValue(CATransform3D: CATransform3DMakeScale(0.9, 0.9, 1)),
             NSValue(CATransform3D: CATransform3DIdentity)
         ]
         
         let transformAnimation = CAKeyframeAnimation(keyPath: "transform")
         transformAnimation.duration = duration * 0.7
         transformAnimation.values = scaleValues
-        transformAnimation.keyTimes = [0, 0.4, 0.7, 1.0]
+        transformAnimation.keyTimes = [0, 0.4, 0.7, 1]
+        transformAnimation.fillMode = kCAFillModeBoth
         transformAnimation.timingFunctions = [
             CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseOut),
             CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut),
@@ -69,9 +70,10 @@ class PopupAnimationController: NSObject, UIViewControllerAnimatedTransitioning
         }
         
         let dimmerFadeAnimation = CABasicAnimation(keyPath: "opacity")
-        dimmerFadeAnimation.fromValue = NSNumber(double: 0)
-        dimmerFadeAnimation.toValue = NSNumber(double: 1.0)
+        dimmerFadeAnimation.fromValue = 0
+        dimmerFadeAnimation.toValue = 1
         dimmerFadeAnimation.duration = duration * 0.3
+        dimmerFadeAnimation.fillMode = kCAFillModeBoth
         dimmerFadeAnimation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
         dimmerFadeAnimation.completionBlock = { (finished: Bool) -> Void in
             if finished {
@@ -95,8 +97,8 @@ class PopupAnimationController: NSObject, UIViewControllerAnimatedTransitioning
         let popupView = popupViewController.view
         
         let dimmerFadeAnimation = CABasicAnimation(keyPath: "opacity")
-        dimmerFadeAnimation.fromValue = NSNumber(double: 1.0)
-        dimmerFadeAnimation.toValue = NSNumber(double: 0)
+        dimmerFadeAnimation.fromValue = 1
+        dimmerFadeAnimation.toValue = 0
         dimmerFadeAnimation.duration = duration * 0.4
         dimmerFadeAnimation.fillMode = kCAFillModeBoth
         dimmerFadeAnimation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
@@ -106,8 +108,8 @@ class PopupAnimationController: NSObject, UIViewControllerAnimatedTransitioning
         
         let scaleValues: [NSValue] = [
             NSValue(CATransform3D: CATransform3DIdentity),
-            NSValue(CATransform3D: CATransform3DMakeScale(1.2, 1.2, 1.0)),
-            NSValue(CATransform3D: CATransform3DMakeScale(0, 0, 1.0)),
+            NSValue(CATransform3D: CATransform3DMakeScale(1.2, 1.2, 1)),
+            NSValue(CATransform3D: CATransform3DMakeScale(0, 0, 1)),
         ]
         
         let transformAnimation = CAKeyframeAnimation(keyPath: "transform")
@@ -120,8 +122,6 @@ class PopupAnimationController: NSObject, UIViewControllerAnimatedTransitioning
             CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseIn),
         ]
         transformAnimation.completionBlock = { (finished: Bool) -> Void in
-            
-            popupView.hidden = true
             if finished {
                 self.dimmerView.layer.addAnimation(dimmerFadeAnimation, forKey: "fadeAnimation")
             }

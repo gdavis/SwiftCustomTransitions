@@ -14,7 +14,7 @@ class ZoomAnimationController: NSObject, UIViewControllerAnimatedTransitioning {
         static let minimum: CGFloat = 0.7, maximum: CGFloat = 2.0
     }
     
-    var reverseAnimation: Bool = false
+    var reverseAnimation = false
     
     
     //MARK: - <UIViewControllerAnimatedTransitioning>
@@ -25,7 +25,6 @@ class ZoomAnimationController: NSObject, UIViewControllerAnimatedTransitioning {
     }
     
     
-    // This method can only  be a nop if the transition is interactive and not a percentDriven interactive transition.
     func animateTransition(transitionContext: UIViewControllerContextTransitioning)
     {
         if self.reverseAnimation {
@@ -59,12 +58,12 @@ class ZoomAnimationController: NSObject, UIViewControllerAnimatedTransitioning {
         containerView.addSubview(detailView)
         detailView.frame = containerView.bounds
         
-        detailView.alpha = 0.0
+        detailView.alpha = 0
         detailView.transform = CGAffineTransformMakeScale(Zoom.maximum, Zoom.maximum)
         
         UIView.animateWithDuration(self.transitionDuration(transitionContext), delay:0, options: UIViewAnimationOptions.CurveEaseInOut, animations: { () -> Void in
             
-            detailView.alpha = 1.0
+            detailView.alpha = 1
             detailView.transform = CGAffineTransformIdentity
             
             tableView.transform = CGAffineTransformMakeScale(Zoom.minimum, Zoom.minimum)
@@ -90,21 +89,21 @@ class ZoomAnimationController: NSObject, UIViewControllerAnimatedTransitioning {
         // note: for dismissal, you do not need to add the "to view" to the container.
         
         tableView.frame = transitionContext.finalFrameForViewController(tableViewController)
-        tableView.alpha = 0.0
+        tableView.alpha = 0
         tableView.transform = CGAffineTransformMakeScale(Zoom.minimum, Zoom.minimum)
         
         UIView.animateWithDuration(self.transitionDuration(transitionContext), delay: 0, options: UIViewAnimationOptions.CurveEaseInOut, animations: { () -> Void in
             
-            tableView.alpha = 1.0
+            tableView.alpha = 1
             tableView.transform = CGAffineTransformIdentity
             
-            detailView.transform = CGAffineTransformMakeScale(Zoom.maximum, Zoom.maximum)
             detailView.alpha = 0
+            detailView.transform = CGAffineTransformMakeScale(Zoom.maximum, Zoom.maximum)
             
             }) { (animationCompleted: Bool) -> Void in
                 
-                detailView.transform = CGAffineTransformIdentity
                 detailView.alpha = 1
+                detailView.transform = CGAffineTransformIdentity
                 
                 transitionContext.completeTransition(animationCompleted)
         }
