@@ -121,6 +121,8 @@ class CubeAnimationController: UIPercentDrivenInteractiveTransition, UIViewContr
     override func cancelInteractiveTransition() {
         super.cancelInteractiveTransition()
         
+        // here we need to reset the layer properties for our views to their original values.
+        // by doing this, we fix an animation flicker that shows the views in their final state
         let transitionContext = self.transitionContext!
         let fromViewController = transitionContext.viewControllerForKey(UITransitionContextFromViewControllerKey)!
         let toViewController = transitionContext.viewControllerForKey(UITransitionContextToViewControllerKey)!
