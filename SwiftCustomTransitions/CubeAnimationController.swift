@@ -12,7 +12,7 @@ class CubeAnimationController: UIPercentDrivenInteractiveTransition, UIViewContr
     
     // constants
     let Rotation = CGFloat(M_PI_2)
-    let Projection: CGFloat = 1.0 / -600
+    let Projection: CGFloat = 1 / -600
     let Duration: CFTimeInterval = 0.65
     
     // animation properties
@@ -154,10 +154,10 @@ class CubeAnimationController: UIPercentDrivenInteractiveTransition, UIViewContr
                 
             case .Ended, .Cancelled:
                 if progress > 0.5 {
-                    self.animateToPercentComplete(1.0)
+                    self.animateToPercentComplete(1)
                 }
                 else {
-                    self.animateToPercentComplete(0.0)
+                    self.animateToPercentComplete(0)
                 }
                 break
                 
@@ -173,7 +173,7 @@ class CubeAnimationController: UIPercentDrivenInteractiveTransition, UIViewContr
     func animateToPercentComplete(percent: CGFloat)
     {
         if self.animationTimer == nil {
-            self.animationTimer = NSTimer.scheduledTimerWithTimeInterval(1.0/60.0, target: self, selector: "adjustProgress:", userInfo: Float(percent), repeats: true)
+            self.animationTimer = NSTimer.scheduledTimerWithTimeInterval(1/60, target: self, selector: "adjustProgress:", userInfo: Float(percent), repeats: true)
         }
     }
     
@@ -196,7 +196,7 @@ class CubeAnimationController: UIPercentDrivenInteractiveTransition, UIViewContr
             
             self.stopAnimationTimer()
             
-            if targetPercent == 1.0 {
+            if targetPercent == 1 {
                 self.finishInteractiveTransition()
             }
             else {
@@ -226,7 +226,7 @@ class CubeAnimationController: UIPercentDrivenInteractiveTransition, UIViewContr
     
     func createCubeTransformAnimation(rotation: CGFloat, view: UIView, presenting: Bool) -> CABasicAnimation
     {
-        let viewFromTransform = CATransform3DMakeRotation(rotation, 0.0, 1.0, 0.0)
+        let viewFromTransform = CATransform3DMakeRotation(rotation, 0, 1, 0)
         let transformAnimation = CABasicAnimation(keyPath: "transform")
         
         if presenting {
