@@ -11,19 +11,16 @@ import UIKit
 class CubeAnimationController: UIPercentDrivenInteractiveTransition, UIViewControllerAnimatedTransitioning, UIViewControllerInteractiveTransitioning, UIGestureRecognizerDelegate {
     
     // constants
-    static let Rotation = CGFloat(M_PI_2)
-    static let Projection: CGFloat = 1.0 / -600
-    static let Duration: CFTimeInterval = 0.75
-    
-    static let SourceViewAnimationKey = "SourceViewAnimationKey"
-    static let DestinationViewAnimationKey = "DestinationViewAnimationKey"
+    let Rotation = CGFloat(M_PI_2)
+    let Projection: CGFloat = 1.0 / -600
+    let Duration: CFTimeInterval = 0.65
     
     // animation properties
-    var reverseAnimation: Bool = false
+    var reverseAnimation = false
     var transitionContext: UIViewControllerContextTransitioning?
     
     // interactive transition properties
-    var interactive: Bool = false
+    var interactive = false
     var startTouchPoint: CGPoint?
     var animationTimer: NSTimer?
     
@@ -32,7 +29,7 @@ class CubeAnimationController: UIPercentDrivenInteractiveTransition, UIViewContr
     
     func transitionDuration(transitionContext: UIViewControllerContextTransitioning) -> NSTimeInterval
     {
-        return CubeAnimationController.Duration
+        return Duration
     }
     
     
@@ -43,9 +40,9 @@ class CubeAnimationController: UIPercentDrivenInteractiveTransition, UIViewContr
         let fromViewController = transitionContext.viewControllerForKey(UITransitionContextFromViewControllerKey)!
         let toViewController = transitionContext.viewControllerForKey(UITransitionContextToViewControllerKey)!
         
+        let containerView = transitionContext.containerView()
         let sourceView = fromViewController.view
         let destinationView = toViewController.view
-        let containerView = transitionContext.containerView()
         
         // since the detail view was just built, it needs to be added to the view heirarchy
         containerView.addSubview(destinationView)
@@ -55,37 +52,34 @@ class CubeAnimationController: UIPercentDrivenInteractiveTransition, UIViewContr
         self.setupScene(containerView, sourceView: sourceView, destinationView: destinationView)
         
         // add animations
-        var toViewAnimation: CAAnimation
-        var fromViewAnimation: CAAnimation
+        var sourceViewAnimation: CAAnimation
+        var destinationViewAnimation: CAAnimation
         
         if self.reverseAnimation {
-            fromViewAnimation = self.createCubeTransformAnimation(CubeAnimationController.Rotation, view: sourceView, presenting: false)
-            toViewAnimation = self.createCubeTransformAnimation(-CubeAnimationController.Rotation, view: destinationView, presenting: true)
+            sourceViewAnimation = self.createCubeTransformAnimation(Rotation, view: sourceView, presenting: false)
+            destinationViewAnimation = self.createCubeTransformAnimation(-Rotation, view: destinationView, presenting: true)
         }
         else {
-            fromViewAnimation = self.createCubeTransformAnimation(-CubeAnimationController.Rotation, view: sourceView, presenting: false)
-            toViewAnimation = self.createCubeTransformAnimation(CubeAnimationController.Rotation, view: destinationView, presenting: true)
+            sourceViewAnimation = self.createCubeTransformAnimation(-Rotation, view: sourceView, presenting: false)
+            destinationViewAnimation = self.createCubeTransformAnimation(Rotation, view: destinationView, presenting: true)
         }
         
-        toViewAnimation.completionBlock = { (success: Bool) -> Void in
+        destinationViewAnimation.completionBlock = { (success: Bool) -> Void in
             transitionContext.completeTransition(success && !transitionContext.transitionWasCancelled())
         }
         
-        sourceView.layer.addAnimation(fromViewAnimation, forKey: CubeAnimationController.SourceViewAnimationKey)
-        destinationView.layer.addAnimation(toViewAnimation, forKey: CubeAnimationController.DestinationViewAnimationKey)
+        sourceView.layer.addAnimation(sourceViewAnimation, forKey: "sourceViewCubeAnimation")
+        destinationView.layer.addAnimation(destinationViewAnimation, forKey: "destinationViewCubeAnimation")
     }
     
     
     func animationEnded(transitionCompleted: Bool)
     {
         if let transitionContext = self.transitionContext {
-            
             let fromViewController = transitionContext.viewControllerForKey(UITransitionContextFromViewControllerKey)!
             let toViewController = transitionContext.viewControllerForKey(UITransitionContextToViewControllerKey)!
-            let sourceView = fromViewController.view
-            let destinationView = toViewController.view
-            sourceView.layer.removeAllAnimations()
-            destinationView.layer.removeAllAnimations()
+            fromViewController.view.layer.removeAllAnimations()
+            toViewController.view.layer.removeAllAnimations()
         }
 
         self.transitionContext = nil
@@ -139,7 +133,6 @@ class CubeAnimationController: UIPercentDrivenInteractiveTransition, UIViewContr
     
     func screenEdgeDidPan(gesture: UIGestureRecognizer)
     {
-        
         if let transitionContext = self.transitionContext {
             
             let containerView = transitionContext.containerView()
@@ -161,10 +154,10 @@ class CubeAnimationController: UIPercentDrivenInteractiveTransition, UIViewContr
                 
             case .Ended, .Cancelled:
                 if progress > 0.5 {
-                    self.animateToProgress(1.0)
+                    self.animateToPercentComplete(1.0)
                 }
                 else {
-                    self.animateToProgress(0.0)
+                    self.animateToPercentComplete(0.0)
                 }
                 break
                 
@@ -177,10 +170,10 @@ class CubeAnimationController: UIPercentDrivenInteractiveTransition, UIViewContr
     
     //MARK: - Cancel
     
-    func animateToProgress(progress: CGFloat)
+    func animateToPercentComplete(percent: CGFloat)
     {
         if self.animationTimer == nil {
-            self.animationTimer = NSTimer.scheduledTimerWithTimeInterval(1.0/60.0, target: self, selector: "adjustProgress:", userInfo: Float(progress), repeats: true)
+            self.animationTimer = NSTimer.scheduledTimerWithTimeInterval(1.0/60.0, target: self, selector: "adjustProgress:", userInfo: Float(percent), repeats: true)
         }
     }
     
@@ -201,14 +194,14 @@ class CubeAnimationController: UIPercentDrivenInteractiveTransition, UIViewContr
         
         if abs(delta) < 0.002 {
             
+            self.stopAnimationTimer()
+            
             if targetPercent == 1.0 {
                 self.finishInteractiveTransition()
             }
             else {
                 self.cancelInteractiveTransition()
             }
-            
-            self.stopAnimationTimer()
         }
     }
     
@@ -217,11 +210,12 @@ class CubeAnimationController: UIPercentDrivenInteractiveTransition, UIViewContr
     
     func setupScene(containerView: UIView, sourceView: UIView, destinationView: UIView)
     {
-        // setup the 3D scene by setting perspective in the container and configurin the view positions
+        // setup the 3D scene by setting perspective in the container and configuring the view positions
         var containerTransform = CATransform3DIdentity
-        containerTransform.m34 = CubeAnimationController.Projection
+        containerTransform.m34 = Projection
         containerView.layer.sublayerTransform = containerTransform
         
+        // calculate the z-distance as a ratio of the width of the container to keep edges aligned
         let z = -(0.5 * CGRectGetWidth(self.transitionContext!.containerView().frame))
         sourceView.layer.zPosition = z
         sourceView.layer.anchorPointZ = z
@@ -245,7 +239,7 @@ class CubeAnimationController: UIPercentDrivenInteractiveTransition, UIViewContr
         }
         
         transformAnimation.fillMode = kCAFillModeRemoved
-        transformAnimation.duration = CubeAnimationController.Duration
+        transformAnimation.duration = Duration
         transformAnimation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
         
         return transformAnimation
