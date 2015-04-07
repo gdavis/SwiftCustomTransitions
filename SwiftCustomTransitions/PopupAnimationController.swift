@@ -78,6 +78,7 @@ class PopupAnimationController: NSObject, UIViewControllerAnimatedTransitioning
         dimmerFadeAnimation.completionBlock = { (finished: Bool) -> Void in
             if finished {
                 containerView.addSubview(popupView)
+                popupView.layer.transform = CATransform3DIdentity
                 popupView.layer.addAnimation(transformAnimation, forKey: "transformAnimation")
             }
             else {
@@ -86,6 +87,7 @@ class PopupAnimationController: NSObject, UIViewControllerAnimatedTransitioning
         }
         
         self.dimmerView.frame = containerView.bounds
+        self.dimmerView.layer.opacity = 1
         self.dimmerView.layer.addAnimation(dimmerFadeAnimation, forKey: "dimmerFadeAnimation")
     }
     
@@ -123,6 +125,7 @@ class PopupAnimationController: NSObject, UIViewControllerAnimatedTransitioning
         ]
         transformAnimation.completionBlock = { (finished: Bool) -> Void in
             if finished {
+                self.dimmerView.layer.opacity = 0
                 self.dimmerView.layer.addAnimation(dimmerFadeAnimation, forKey: "fadeAnimation")
             }
             else {
@@ -130,6 +133,9 @@ class PopupAnimationController: NSObject, UIViewControllerAnimatedTransitioning
             }
         }
         
+        // its important to set the layer to its final values when adding the animation, without this,
+        // you can get a flicker showing the original values when the animation ends. 
+        popupView.layer.transform = scaleValues.last!.CATransform3DValue
         popupView.layer.addAnimation(transformAnimation, forKey: "transformAnimation")
     }
     
