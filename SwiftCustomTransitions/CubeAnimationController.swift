@@ -75,13 +75,6 @@ class CubeAnimationController: UIPercentDrivenInteractiveTransition, UIViewContr
     
     func animationEnded(transitionCompleted: Bool)
     {
-        if let transitionContext = self.transitionContext {
-            let fromViewController = transitionContext.viewControllerForKey(UITransitionContextFromViewControllerKey)!
-            let toViewController = transitionContext.viewControllerForKey(UITransitionContextToViewControllerKey)!
-            fromViewController.view.layer.removeAllAnimations()
-            toViewController.view.layer.removeAllAnimations()
-        }
-
         self.transitionContext = nil
         self.interactive = false
         self.interactivePopGestureRecognizer = nil
@@ -112,7 +105,9 @@ class CubeAnimationController: UIPercentDrivenInteractiveTransition, UIViewContr
     
     
     //MARK: - Gesture Recognizer
-    
+    // this gesture is owned by the UINavigationController and is used to update the transition
+    // animation as the user pans across the screen. we become the delegate and respond to its
+    // actions in order to use the gesture for the transition.
     var interactivePopGestureRecognizer: UIGestureRecognizer? {
         didSet {
             self.interactivePopGestureRecognizer?.addTarget(self, action: "screenEdgeDidPan:")
@@ -126,6 +121,7 @@ class CubeAnimationController: UIPercentDrivenInteractiveTransition, UIViewContr
         if self.animationTimer != nil {
             return false
         }
+        
         self.interactive = true
         return true
     }
@@ -168,7 +164,7 @@ class CubeAnimationController: UIPercentDrivenInteractiveTransition, UIViewContr
     }
     
     
-    //MARK: - Cancel
+    //MARK: - Animation Timer
     
     func animateToPercentComplete(percent: CGFloat)
     {
@@ -238,7 +234,6 @@ class CubeAnimationController: UIPercentDrivenInteractiveTransition, UIViewContr
             transformAnimation.toValue = NSValue(CATransform3D: viewFromTransform)
         }
         
-        transformAnimation.fillMode = kCAFillModeRemoved
         transformAnimation.duration = Duration
         transformAnimation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
         

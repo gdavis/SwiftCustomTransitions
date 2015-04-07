@@ -73,9 +73,9 @@
 		77EC4A5E1AD1A8250009CA9F /* Transitions */ = {
 			isa = PBXGroup;
 			children = (
-				77EC4A5C1AD1A81B0009CA9F /* CubeAnimationController.swift */,
 				77F80F5E1AA16A7F00083B91 /* ZoomAnimationController.swift */,
 				77D360FD1AA2AB47000B7B57 /* PopupAnimationController.swift */,
+				77EC4A5C1AD1A81B0009CA9F /* CubeAnimationController.swift */,
 			);
 			name = Transitions;
 			sourceTree = "<group>";

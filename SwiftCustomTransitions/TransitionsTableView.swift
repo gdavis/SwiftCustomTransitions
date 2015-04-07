@@ -65,8 +65,6 @@ class TransitionsTableView: UITableViewController, UIViewControllerTransitioning
     
     func animationControllerForPresentedController(presented: UIViewController, presentingController presenting: UIViewController, sourceController source: UIViewController) -> UIViewControllerAnimatedTransitioning?
     {
-        println("animationControllerForPresentedController")
-        
         if presented.isKindOfClass(DetailViewController) {
             self.zoomAnimation.reverseAnimation = false
             return self.zoomAnimation
@@ -75,18 +73,12 @@ class TransitionsTableView: UITableViewController, UIViewControllerTransitioning
             self.popupAnimation.reverseAnimation = false
             return self.popupAnimation
         }
-//        else if presented.isKindOfClass(CubeDetailViewController) {
-//            self.cubeAnimation.reverseAnimation = false
-//            return self.cubeAnimation
-//        }
         return nil
     }
     
     
     func animationControllerForDismissedController(dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning?
     {
-        println("animationControllerForDismissedController")
-        
         if dismissed.isKindOfClass(DetailViewController) {
             self.zoomAnimation.reverseAnimation = true
             return self.zoomAnimation
@@ -95,35 +87,9 @@ class TransitionsTableView: UITableViewController, UIViewControllerTransitioning
             self.popupAnimation.reverseAnimation = true
             return self.popupAnimation
         }
-//        else if dismissed.isKindOfClass(CubeDetailViewController) {
-//            self.cubeAnimation.reverseAnimation = true
-//            return self.cubeAnimation
-//        }
         return nil
     }
-    
-//    // note: these are called after the methods above
-//    func interactionControllerForPresentation(animator: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning?
-//    {
-//        println("interactionControllerForPresentation")
-//        if animator.isKindOfClass(CubeAnimationController) {
-//            return animator as! CubeAnimationController
-//        }
-//        
-//        return nil
-//    }
-//    
-//    
-//    func interactionControllerForDismissal(animator: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning?
-//    {
-//        println("interactionControllerForDismissal")
-//        if animator.isKindOfClass(CubeAnimationController) {
-//            return animator as! CubeAnimationController
-//        }
-//        
-//        return nil
-//    }
-    
+
     
     //MARK: - UINavigationControllerDelegate
     
