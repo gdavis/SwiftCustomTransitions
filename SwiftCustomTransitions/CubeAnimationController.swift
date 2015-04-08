@@ -8,7 +8,7 @@
 
 import UIKit
 
-class CubeAnimationController: UIPercentDrivenInteractiveTransition, UIViewControllerAnimatedTransitioning, UIViewControllerInteractiveTransitioning, UIGestureRecognizerDelegate {
+class CubeAnimationController: UIPercentDrivenInteractiveTransition, UIViewControllerAnimatedTransitioning, UIGestureRecognizerDelegate {
     
     // constants
     let Rotation = CGFloat(M_PI_2)
@@ -39,10 +39,7 @@ class CubeAnimationController: UIPercentDrivenInteractiveTransition, UIViewContr
         
         let fromViewController = transitionContext.viewControllerForKey(UITransitionContextFromViewControllerKey)!
         let toViewController = transitionContext.viewControllerForKey(UITransitionContextToViewControllerKey)!
-        
-        let containerView = transitionContext.containerView()
-        let sourceView = fromViewController.view
-        let destinationView = toViewController.view
+        let (containerView, sourceView, destinationView) = self.transitionContextViews(transitionContext)
         
         // since the detail view was just built, it needs to be added to the view heirarchy
         containerView.addSubview(destinationView)
@@ -75,19 +72,6 @@ class CubeAnimationController: UIPercentDrivenInteractiveTransition, UIViewContr
     
     func animationEnded(transitionCompleted: Bool)
     {
-        let transitionContext = self.transitionContext!
-        let fromViewController = transitionContext.viewControllerForKey(UITransitionContextFromViewControllerKey)!
-        let toViewController = transitionContext.viewControllerForKey(UITransitionContextToViewControllerKey)!
-        
-        let containerView = transitionContext.containerView()
-        let sourceView = fromViewController.view
-        let destinationView = toViewController.view
-        
-        if transitionCompleted == false {
-            sourceView.layer.transform = CATransform3DIdentity
-            destinationView.removeFromSuperview()
-        }
-        
         self.transitionContext = nil
         self.interactive = false
         self.interactivePopGestureRecognizer = nil
@@ -100,22 +84,8 @@ class CubeAnimationController: UIPercentDrivenInteractiveTransition, UIViewContr
     {
         super.startInteractiveTransition(transitionContext)
         
-        let fromViewController = transitionContext.viewControllerForKey(UITransitionContextFromViewControllerKey)!
-        let toViewController = transitionContext.viewControllerForKey(UITransitionContextToViewControllerKey)!
-        
-        let containerView = transitionContext.containerView()
-        let sourceView = fromViewController.view
-        let destinationView = toViewController.view
-        
-        // since the detail view was just built, it needs to be added to the view heirarchy
-        containerView.addSubview(destinationView)
-        destinationView.frame = containerView.bounds
-        
-        // setup the 3D scene by setting perspective in the container and configurin the view positions
-        self.setupScene(containerView, sourceView: sourceView, destinationView: destinationView)
-        self.startTouchPoint = self.interactivePopGestureRecognizer?.locationInView(containerView)
+        self.startTouchPoint = self.interactivePopGestureRecognizer?.locationInView(transitionContext.containerView())
     }
-    
     
     
     override func cancelInteractiveTransition() {
@@ -124,11 +94,7 @@ class CubeAnimationController: UIPercentDrivenInteractiveTransition, UIViewContr
         // here we need to reset the layer properties for our views to their original values.
         // by doing this, we fix an animation flicker that shows the views in their final state
         let transitionContext = self.transitionContext!
-        let fromViewController = transitionContext.viewControllerForKey(UITransitionContextFromViewControllerKey)!
-        let toViewController = transitionContext.viewControllerForKey(UITransitionContextToViewControllerKey)!
-        
-        let sourceView = fromViewController.view
-        let destinationView = toViewController.view
+        let (containerView, sourceView, destinationView) = self.transitionContextViews(transitionContext)
         
         let sourceViewAnimation = sourceView.layer.animationForKey("transform") as! CABasicAnimation
         let destinationViewAnimation = destinationView.layer.animationForKey("transform") as! CABasicAnimation
@@ -237,6 +203,15 @@ class CubeAnimationController: UIPercentDrivenInteractiveTransition, UIViewContr
     
     
     //MARK: - Helpers
+    
+    // helper method to retrieve the contents of the transition context
+    func transitionContextViews(transitionContext: UIViewControllerContextTransitioning) -> (containerView: UIView, sourceView: UIView, destinationView: UIView)
+    {
+        let fromViewController = transitionContext.viewControllerForKey(UITransitionContextFromViewControllerKey)!
+        let toViewController = transitionContext.viewControllerForKey(UITransitionContextToViewControllerKey)!
+        return (transitionContext.containerView(), fromViewController.view, toViewController.view)
+    }
+    
     
     func setupScene(containerView: UIView, sourceView: UIView, destinationView: UIView)
     {

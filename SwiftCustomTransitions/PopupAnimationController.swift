@@ -11,13 +11,12 @@ import UIKit
 class PopupAnimationController: NSObject, UIViewControllerAnimatedTransitioning
 {
     var reverseAnimation: Bool = false
-    let dimmerView: UIView
     
-    override init() {
+    lazy var dimmerView: UIView = {
         let view = UIView(frame: CGRectZero)
-        view.backgroundColor = UIColor .blackColor().colorWithAlphaComponent(0.8)
-        self.dimmerView = view
-    }
+        view.backgroundColor = UIColor.blackColor().colorWithAlphaComponent(0.8)
+        return view
+    }()
     
     
     func transitionDuration(transitionContext: UIViewControllerContextTransitioning) -> NSTimeInterval

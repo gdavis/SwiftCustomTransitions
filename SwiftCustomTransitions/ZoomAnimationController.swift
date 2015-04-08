@@ -8,8 +8,8 @@
 
 import UIKit
 
-class ZoomAnimationController: NSObject, UIViewControllerAnimatedTransitioning {
-    
+class ZoomAnimationController: NSObject, UIViewControllerAnimatedTransitioning
+{
     private struct Zoom {
         static let minimum: CGFloat = 0.7, maximum: CGFloat = 2.0
     }
@@ -36,24 +36,19 @@ class ZoomAnimationController: NSObject, UIViewControllerAnimatedTransitioning {
     }
     
     
-    // This is a convenience and if implemented will be invoked by the system when the transition context's completeTransition: method is invoked.
-    func animationEnded(transitionCompleted: Bool) {}
-    
-    
     //MARK: - Animations
     
-    func animateIn(transitionContext: UIViewControllerContextTransitioning) {
+    func animateIn(transitionContext: UIViewControllerContextTransitioning)
+    {
         let tableViewController = transitionContext.viewControllerForKey(UITransitionContextFromViewControllerKey)!
         let detailViewController = transitionContext.viewControllerForKey(UITransitionContextToViewControllerKey)!
-        
-        // viewForKey is iOS8+ and only necessary when a system-provided presentation controller installs another view underneath the presented view controller’s view.
-        //   let detailView = transitionContext.viewForKey(UITransitionContextToViewKey)!
-        //   let tableView = transitionContext.viewForKey(UITransitionContextFromViewKey) as! UITableView
-        // for most cases, we just access the view's from their VC.
+
+        let containerView: UIView = transitionContext.containerView()
         let detailView = detailViewController.view
         let tableView = tableViewController.view
         
-        let containerView: UIView = transitionContext.containerView()
+        let duration = self.transitionDuration(transitionContext)
+        
         // since the detail view was just built, it needs to be added to the view heirarchy
         containerView.addSubview(detailView)
         detailView.frame = containerView.bounds
@@ -61,32 +56,30 @@ class ZoomAnimationController: NSObject, UIViewControllerAnimatedTransitioning {
         detailView.alpha = 0
         detailView.transform = CGAffineTransformMakeScale(Zoom.maximum, Zoom.maximum)
         
-        UIView.animateWithDuration(self.transitionDuration(transitionContext), delay:0, options: UIViewAnimationOptions.CurveEaseInOut, animations: { () -> Void in
+        UIView.animateWithDuration(duration, delay:0, options: UIViewAnimationOptions.CurveEaseInOut, animations: { () -> Void in
             
             detailView.alpha = 1
             detailView.transform = CGAffineTransformIdentity
-            
             tableView.transform = CGAffineTransformMakeScale(Zoom.minimum, Zoom.minimum)
             
             }) { (animationCompleted: Bool) -> Void in
                 
-                // return things back to normal
+                // return the table view back to its original state
                 tableView.transform = CGAffineTransformIdentity
                 
-                // finally, tell the context we are done
+                // when the animation is done we need to complete the transition
                 transitionContext.completeTransition(animationCompleted)
         }
     }
     
     
-    func animateOut(transitionContext: UIViewControllerContextTransitioning) {
+    func animateOut(transitionContext: UIViewControllerContextTransitioning)
+    {
         let tableViewController = transitionContext.viewControllerForKey(UITransitionContextToViewControllerKey)!
         let detailViewController = transitionContext.viewControllerForKey(UITransitionContextFromViewControllerKey)!
         
         let detailView = detailViewController.view
         let tableView = tableViewController.view
-        
-        // note: for dismissal, you do not need to add the "to view" to the container.
         
         tableView.frame = transitionContext.finalFrameForViewController(tableViewController)
         tableView.alpha = 0
