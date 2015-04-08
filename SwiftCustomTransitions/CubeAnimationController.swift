@@ -62,6 +62,8 @@ class CubeAnimationController: UIPercentDrivenInteractiveTransition, UIViewContr
         }
         
         destinationViewAnimation.completionBlock = { (success: Bool) -> Void in
+            // whenever this animation completes we need to update the context and determine
+            // if the transition successfully completed.
             transitionContext.completeTransition(success && !transitionContext.transitionWasCancelled())
         }
         
@@ -84,6 +86,8 @@ class CubeAnimationController: UIPercentDrivenInteractiveTransition, UIViewContr
     {
         super.startInteractiveTransition(transitionContext)
         
+        // the gesture has already began once this method fires, so we cannot rely on the Begin state for the
+        // gesture to record the first touch point. instead, capture it here when the interactive transition begins.
         self.startTouchPoint = self.interactivePopGestureRecognizer?.locationInView(transitionContext.containerView())
     }
     
@@ -118,11 +122,17 @@ class CubeAnimationController: UIPercentDrivenInteractiveTransition, UIViewContr
     
     func gestureRecognizerShouldBegin(gestureRecognizer: UIGestureRecognizer) -> Bool
     {
+        // prevent the gesture from starting when we're in the middle of animating
+        // to a new target value.
         if self.animationTimer != nil {
             return false
         }
         
+        // this flag helps us determine when to tell the navigation controller when to use
+        // this object as the interactive animation controller. we always want to handle
+        // the animation as an interactive one when the pop gesture begins motion
         self.interactive = true
+        
         return true
     }
     
@@ -140,6 +150,8 @@ class CubeAnimationController: UIPercentDrivenInteractiveTransition, UIViewContr
             case .Changed:
                 self.updateInteractiveTransition(progress)
                 
+                // the following progress thresholds are different due to the nature of the
+                // easing of the animation. these were determined by "feel" to match the gesture best
                 if self.reverseAnimation == false && progress >= 0.75 {
                     self.finishInteractiveTransition()
                 }
@@ -149,6 +161,11 @@ class CubeAnimationController: UIPercentDrivenInteractiveTransition, UIViewContr
                 break
                 
             case .Ended, .Cancelled:
+                
+                // when a gesture ends, we need to determine how far through the user
+                // was through the animation, and then advance our animation to either a 
+                // fully transitioned or cancelled state. we control this with a custom
+                // timer that updates the transition context until we reach the target progress
                 if progress > 0.5 {
                     self.animateToPercentComplete(1)
                 }
@@ -222,7 +239,7 @@ class CubeAnimationController: UIPercentDrivenInteractiveTransition, UIViewContr
         containerView.layer.sublayerTransform = containerTransform
         
         // calculate the z-distance as a ratio of the width of the container. 
-        // this keeps the edges of the cube sides aligned when rotating
+        // this keeps the edges of the cube sides aligned when rotating with different screen sizes
         let z = -(0.5 * CGRectGetWidth(self.transitionContext!.containerView().frame))
         sourceView.layer.zPosition = z
         sourceView.layer.anchorPointZ = z
