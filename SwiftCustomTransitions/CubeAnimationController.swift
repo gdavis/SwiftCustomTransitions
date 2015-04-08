@@ -256,16 +256,17 @@ class CubeAnimationController: UIPercentDrivenInteractiveTransition, UIViewContr
         if presenting {
             transformAnimation.fromValue = NSValue(CATransform3D: viewFromTransform)
             transformAnimation.toValue = NSValue(CATransform3D: CATransform3DIdentity)
-            view.layer.transform = CATransform3DIdentity
         }
         else {
             transformAnimation.fromValue = NSValue(CATransform3D: CATransform3DIdentity)
             transformAnimation.toValue = NSValue(CATransform3D: viewFromTransform)
-            view.layer.transform = viewFromTransform
         }
         
         transformAnimation.duration = Duration
         transformAnimation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
+        
+        // set the view's layer to the final value. fixes flickering at the end of the animation
+        view.layer.transform = (transformAnimation.toValue as! NSValue).CATransform3DValue
         
         return transformAnimation
     }
