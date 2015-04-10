@@ -8,9 +8,10 @@
 
 import UIKit
 
-class CubeDetailViewController: UIViewController {
-
-    override func viewDidLoad() {
+class CubeDetailViewController: UIViewController
+{
+    override func viewDidLoad()
+    {
         super.viewDidLoad()
 
         self.view.layer.borderColor = UIColor.redColor().CGColor

@@ -10,7 +10,8 @@ import UIKit
 
 class ZoomAnimationController: NSObject, UIViewControllerAnimatedTransitioning
 {
-    private struct Zoom {
+    private struct Zoom
+    {
         static let minimum: CGFloat = 0.7, maximum: CGFloat = 2.0
     }
     

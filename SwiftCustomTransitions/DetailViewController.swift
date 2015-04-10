@@ -12,9 +12,10 @@ class DetailViewController: UIViewController
 {
     @IBOutlet var titleLabel: UILabel!
     
-    override func viewDidLoad() {
+    override func viewDidLoad()
+    {
         super.viewDidLoad()
-        self.titleLabel.setTranslatesAutoresizingMaskIntoConstraints(false)
+        
         self.view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: Selector("tapped")))
     }
     
