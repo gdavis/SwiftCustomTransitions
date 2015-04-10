@@ -201,11 +201,11 @@ class CubeAnimationController: UIPercentDrivenInteractiveTransition, UIViewContr
     func adjustPercentComplete(timer: NSTimer)
     {
         let targetPercent = timer.userInfo as! CGFloat
-        let delta = (targetPercent - self.percentComplete) * 0.075
+        let delta = (targetPercent - self.percentComplete) * 0.1
         
         self.updateInteractiveTransition(self.percentComplete + delta)
         
-        if abs(delta) < 0.001 {
+        if abs(delta) < 0.0001 {
             
             self.stopAnimationTimer()
             
@@ -263,7 +263,14 @@ class CubeAnimationController: UIPercentDrivenInteractiveTransition, UIViewContr
         }
         
         transformAnimation.duration = Duration
-        transformAnimation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
+        
+        // use a linear curve when interactive so the motion matches the movement of the touch
+        if self.interactive {
+            transformAnimation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionLinear)
+        }
+        else {
+            transformAnimation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
+        }
         
         // set the view's layer to the final value. fixes flickering at the end of the animation
         view.layer.transform = (transformAnimation.toValue as! NSValue).CATransform3DValue
