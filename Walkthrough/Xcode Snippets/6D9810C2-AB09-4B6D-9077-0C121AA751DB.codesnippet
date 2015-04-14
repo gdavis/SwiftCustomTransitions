@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDECodeSnippetCompletionPrefix</key>
+	<string>$ct7</string>
+	<key>IDECodeSnippetCompletionScopes</key>
+	<array>
+		<string>ClassImplementation</string>
+	</array>
+	<key>IDECodeSnippetContents</key>
+	<string>// constants
+let Rotation = CGFloat(M_PI_2)
+let Projection: CGFloat = 1 / -600
+let Duration: CFTimeInterval = 0.65
+
+// animation properties
+var reverseAnimation = false
+var transitionContext: UIViewControllerContextTransitioning?
+
+// $ct9 - add interactive variables
+
+//MARK: - UIViewControllerAnimatedTransitioning
+
+func transitionDuration(transitionContext: UIViewControllerContextTransitioning) -&gt; NSTimeInterval
+{
+    return Duration
+}
+
+
+func animateTransition(transitionContext: UIViewControllerContextTransitioning)
+{
+    self.transitionContext = transitionContext
+    
+    let fromViewController = transitionContext.viewControllerForKey(UITransitionContextFromViewControllerKey)!
+    let toViewController = transitionContext.viewControllerForKey(UITransitionContextToViewControllerKey)!
+    let (containerView, sourceView, destinationView) = self.transitionContextViews(transitionContext)
+    
+    // since the detail view was just built, it needs to be added to the view heirarchy
+    containerView.addSubview(destinationView)
+    destinationView.frame = transitionContext.finalFrameForViewController(toViewController)
+    
+    // setup the 3D scene by setting perspective in the container and configurin the view positions
+    self.setupScene(containerView, sourceView: sourceView, destinationView: destinationView)
+    
+    // add animations
+    var sourceViewAnimation: CABasicAnimation
+    var destinationViewAnimation: CABasicAnimation
+    
+    if self.reverseAnimation {
+        sourceViewAnimation = self.createCubeTransformAnimation(Rotation, view: sourceView, presenting: false)
+        destinationViewAnimation = self.createCubeTransformAnimation(-Rotation, view: destinationView, presenting: true)
+    }
+    else {
+        sourceViewAnimation = self.createCubeTransformAnimation(-Rotation, view: sourceView, presenting: false)
+        destinationViewAnimation = self.createCubeTransformAnimation(Rotation, view: destinationView, presenting: true)
+    }
+    
+    destinationViewAnimation.completionBlock = { (success: Bool) -&gt; Void in
+        // whenever this animation completes we need to update the context and determine
+        // if the transition successfully completed.
+        transitionContext.completeTransition(success &amp;&amp; !transitionContext.transitionWasCancelled())
+    }
+    
+    sourceView.layer.addAnimation(sourceViewAnimation, forKey: sourceViewAnimation.keyPath)
+    destinationView.layer.addAnimation(destinationViewAnimation, forKey: destinationViewAnimation.keyPath)
+}
+
+
+// TODO: $ct10 - Add Interaction
+
+
+//MARK: - Helpers
+
+// helper method to retrieve the contents of the transition context
+func transitionContextViews(transitionContext: UIViewControllerContextTransitioning) -&gt; (containerView: UIView, sourceView: UIView, destinationView: UIView)
+{
+    let fromViewController = transitionContext.viewControllerForKey(UITransitionContextFromViewControllerKey)!
+    let toViewController = transitionContext.viewControllerForKey(UITransitionContextToViewControllerKey)!
+    return (transitionContext.containerView(), fromViewController.view, toViewController.view)
+}
+
+
+func setupScene(containerView: UIView, sourceView: UIView, destinationView: UIView)
+{
+    // setup the 3D scene by setting perspective in the container and configuring the view positions
+    // https://developer.apple.com/library/mac/documentation/Cocoa/Conceptual/CoreAnimation_guide/AdvancedAnimationTricks/AdvancedAnimationTricks.html#//apple_ref/doc/uid/TP40004514-CH8-SW13
+    var containerTransform = CATransform3DIdentity
+    containerTransform.m34 = Projection
+    containerView.layer.sublayerTransform = containerTransform
+    
+    // calculate the z-distance as a ratio of the width of the container.
+    // this keeps the edges of the cube sides aligned when rotating with different screen sizes
+    let z = -(0.5 * CGRectGetWidth(self.transitionContext!.containerView().frame))
+    sourceView.layer.zPosition = z
+    sourceView.layer.anchorPointZ = z
+    destinationView.layer.zPosition = z
+    destinationView.layer.anchorPointZ = z
+}
+
+
+func createCubeTransformAnimation(rotation: CGFloat, view: UIView, presenting: Bool) -&gt; CABasicAnimation
+{
+    let viewFromTransform = CATransform3DMakeRotation(rotation, 0, 1, 0)
+    let transformAnimation = CABasicAnimation(keyPath: "transform")
+    
+    if presenting {
+        transformAnimation.fromValue = NSValue(CATransform3D: viewFromTransform)
+        transformAnimation.toValue = NSValue(CATransform3D: CATransform3DIdentity)
+    }
+    else {
+        transformAnimation.fromValue = NSValue(CATransform3D: CATransform3DIdentity)
+        transformAnimation.toValue = NSValue(CATransform3D: viewFromTransform)
+    }
+    
+    transformAnimation.duration = Duration
+    
+    // TODO: use a linear curve when interactive so the motion matches the movement of the touch
+    transformAnimation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
+    
+    // set the view's layer to the final value. fixes flickering at the end of the animation
+    view.layer.transform = (transformAnimation.toValue as! NSValue).CATransform3DValue
+    
+    return transformAnimation
+}</string>
+	<key>IDECodeSnippetIdentifier</key>
+	<string>6D9810C2-AB09-4B6D-9077-0C121AA751DB</string>
+	<key>IDECodeSnippetLanguage</key>
+	<string>Xcode.SourceCodeLanguage.Swift</string>
+	<key>IDECodeSnippetSummary</key>
+	<string>7</string>
+	<key>IDECodeSnippetTitle</key>
+	<string>Custom Transition - 7 - Cube Animation</string>
+	<key>IDECodeSnippetUserSnippet</key>
+	<true/>
+	<key>IDECodeSnippetVersion</key>
+	<integer>0</integer>
+</dict>
+</plist>

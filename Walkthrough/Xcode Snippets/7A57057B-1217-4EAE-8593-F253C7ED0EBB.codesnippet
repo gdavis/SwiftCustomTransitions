@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDECodeSnippetCompletionPrefix</key>
+	<string>$ct3</string>
+	<key>IDECodeSnippetCompletionScopes</key>
+	<array>
+		<string>ClassImplementation</string>
+	</array>
+	<key>IDECodeSnippetContents</key>
+	<string>//MARK: - Animations
+    
+    func animateIn(transitionContext: UIViewControllerContextTransitioning)
+    {
+        let tableViewController = transitionContext.viewControllerForKey(UITransitionContextFromViewControllerKey)!
+        let detailViewController = transitionContext.viewControllerForKey(UITransitionContextToViewControllerKey)!
+
+        let containerView: UIView = transitionContext.containerView()
+        let detailView = detailViewController.view
+        let tableView = tableViewController.view
+        
+        let duration = self.transitionDuration(transitionContext)
+        
+        // since the detail view was just built, it needs to be added to the view heirarchy
+        containerView.addSubview(detailView)
+        detailView.frame = containerView.bounds
+        
+        detailView.alpha = 0
+        detailView.transform = CGAffineTransformMakeScale(Zoom.maximum, Zoom.maximum)
+        
+        UIView.animateWithDuration(duration, delay:0, options: UIViewAnimationOptions.CurveEaseInOut, animations: { () -&gt; Void in
+            
+            detailView.alpha = 1
+            detailView.transform = CGAffineTransformIdentity
+            tableView.transform = CGAffineTransformMakeScale(Zoom.minimum, Zoom.minimum)
+            
+            }) { (animationCompleted: Bool) -&gt; Void in
+                
+                // return the table view back to its original state
+                tableView.transform = CGAffineTransformIdentity
+                
+                // when the animation is done we need to complete the transition
+                transitionContext.completeTransition(animationCompleted)
+        }
+    }
+    
+    
+    func animateOut(transitionContext: UIViewControllerContextTransitioning)
+    {
+        let tableViewController = transitionContext.viewControllerForKey(UITransitionContextToViewControllerKey)!
+        let detailViewController = transitionContext.viewControllerForKey(UITransitionContextFromViewControllerKey)!
+        
+        let detailView = detailViewController.view
+        let tableView = tableViewController.view
+        
+        tableView.frame = transitionContext.finalFrameForViewController(tableViewController)
+        tableView.alpha = 0
+        tableView.transform = CGAffineTransformMakeScale(Zoom.minimum, Zoom.minimum)
+        
+        UIView.animateWithDuration(self.transitionDuration(transitionContext), delay: 0, options: UIViewAnimationOptions.CurveEaseInOut, animations: { () -&gt; Void in
+            
+            tableView.alpha = 1
+            tableView.transform = CGAffineTransformIdentity
+            
+            detailView.alpha = 0
+            detailView.transform = CGAffineTransformMakeScale(Zoom.maximum, Zoom.maximum)
+            
+            }) { (animationCompleted: Bool) -&gt; Void in
+                
+                detailView.alpha = 1
+                detailView.transform = CGAffineTransformIdentity
+                
+                transitionContext.completeTransition(animationCompleted)
+        }
+    }</string>
+	<key>IDECodeSnippetIdentifier</key>
+	<string>7A57057B-1217-4EAE-8593-F253C7ED0EBB</string>
+	<key>IDECodeSnippetLanguage</key>
+	<string>Xcode.SourceCodeLanguage.Swift</string>
+	<key>IDECodeSnippetSummary</key>
+	<string>3</string>
+	<key>IDECodeSnippetTitle</key>
+	<string>Custom Transition - 3 - Zoom Animation</string>
+	<key>IDECodeSnippetUserSnippet</key>
+	<true/>
+	<key>IDECodeSnippetVersion</key>
+	<integer>2</integer>
+</dict>
+</plist>

@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDECodeSnippetCompletionPrefix</key>
+	<string>$ct10</string>
+	<key>IDECodeSnippetCompletionScopes</key>
+	<array>
+		<string>ClassImplementation</string>
+	</array>
+	<key>IDECodeSnippetContents</key>
+	<string>func animationEnded(transitionCompleted: Bool)
+    {
+        self.transitionContext = nil
+        self.interactive = false
+        self.interactivePopGestureRecognizer = nil
+    }
+
+
+    //MARK: - UIViewControllerInteractiveTransitioning
+    
+    override func startInteractiveTransition(transitionContext: UIViewControllerContextTransitioning)
+    {
+        super.startInteractiveTransition(transitionContext)
+        
+        // the gesture has already began once this method fires, so we cannot rely on the Begin state for the
+        // gesture to record the first touch point. instead, capture it here when the interactive transition begins.
+        self.startTouchPoint = self.interactivePopGestureRecognizer?.locationInView(transitionContext.containerView())
+    }
+    
+    
+    override func cancelInteractiveTransition() {
+        super.cancelInteractiveTransition()
+        
+        // here we need to reset the layer properties for our views to their original values.
+        // by doing this, we fix an animation flicker that shows the views in their final state
+        let transitionContext = self.transitionContext!
+        let (containerView, sourceView, destinationView) = self.transitionContextViews(transitionContext)
+        
+        let sourceViewAnimation = sourceView.layer.animationForKey("transform") as! CABasicAnimation
+        let destinationViewAnimation = destinationView.layer.animationForKey("transform") as! CABasicAnimation
+        
+        sourceView.layer.transform = (sourceViewAnimation.fromValue as! NSValue).CATransform3DValue
+        destinationView.layer.transform = (destinationViewAnimation.fromValue as! NSValue).CATransform3DValue
+    }
+    
+    
+    //MARK: - Gesture Recognizer
+    // this gesture is owned by the UINavigationController and is used to update the transition
+    // animation as the user pans across the screen. we become the delegate and respond to its
+    // actions in order to use the gesture for the transition.
+    var interactivePopGestureRecognizer: UIGestureRecognizer? {
+        didSet {
+            self.interactivePopGestureRecognizer?.delegate = self
+            self.interactivePopGestureRecognizer?.addTarget(self, action: "screenEdgeDidPan:")
+        }
+    }
+    
+    
+    func gestureRecognizerShouldBegin(gestureRecognizer: UIGestureRecognizer) -&gt; Bool
+    {
+        // prevent the gesture from starting when we're in the middle of animating
+        // to a new target value.
+        if self.animationTimer != nil {
+            return false
+        }
+        
+        // this flag helps us determine when to tell the navigation controller when to use
+        // this object as the interactive animation controller. we always want to handle
+        // the animation as an interactive one when the pop gesture begins motion
+        self.interactive = true
+        
+        return true
+    }
+    
+    
+    func screenEdgeDidPan(gesture: UIGestureRecognizer)
+    {
+        if let transitionContext = self.transitionContext {
+            
+            let containerView = transitionContext.containerView()
+            let touchPoint = gesture.locationInView(containerView)
+            let progress = touchPoint.x / CGRectGetWidth(containerView.frame)
+            
+            switch (gesture.state) {
+                
+            case .Changed:
+                self.updateInteractiveTransition(progress)
+                
+                if progress &gt;= 0.995 {
+                    self.finishInteractiveTransition()
+                }
+                break
+                
+            case .Ended, .Cancelled:
+                
+                // when a gesture ends, we need to determine how far through the user
+                // was through the animation, and then advance our animation to either a 
+                // fully transitioned or cancelled state. we control this with a custom
+                // timer that updates the transition context until we reach the target progress
+                if progress &gt; 0.5 {
+                    self.animateToPercentComplete(1)
+                }
+                else {
+                    self.animateToPercentComplete(0)
+                }
+                break
+                
+            default:
+                break
+            }
+        }
+    }
+    
+    
+    //MARK: - Animation Timer
+    
+    func animateToPercentComplete(percent: CGFloat)
+    {
+        if self.animationTimer == nil {
+            self.animationTimer = NSTimer.scheduledTimerWithTimeInterval(1/60, target: self, selector: "adjustPercentComplete:", userInfo: Float(percent), repeats: true)
+        }
+    }
+    
+    
+    func stopAnimationTimer()
+    {
+        self.animationTimer?.invalidate()
+        self.animationTimer = nil
+    }
+    
+    
+    func adjustPercentComplete(timer: NSTimer)
+    {
+        let targetPercent = timer.userInfo as! CGFloat
+        let delta = (targetPercent - self.percentComplete) * 0.1
+        
+        self.updateInteractiveTransition(self.percentComplete + delta)
+        
+        if abs(delta) &lt; 0.001 {
+            
+            self.stopAnimationTimer()
+            
+            if targetPercent == 1 {
+                self.finishInteractiveTransition()
+            }
+            else {
+                self.cancelInteractiveTransition()
+            }
+        }
+    }
+</string>
+	<key>IDECodeSnippetIdentifier</key>
+	<string>55D471FC-1E38-43BE-A310-A9D8AF864F4F</string>
+	<key>IDECodeSnippetLanguage</key>
+	<string>Xcode.SourceCodeLanguage.Swift</string>
+	<key>IDECodeSnippetSummary</key>
+	<string>10</string>
+	<key>IDECodeSnippetTitle</key>
+	<string>Custom Transition - 10 - Cube Interaction</string>
+	<key>IDECodeSnippetUserSnippet</key>
+	<true/>
+	<key>IDECodeSnippetVersion</key>
+	<integer>0</integer>
+</dict>
+</plist>
