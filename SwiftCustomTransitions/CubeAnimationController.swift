@@ -150,12 +150,7 @@ class CubeAnimationController: UIPercentDrivenInteractiveTransition, UIViewContr
             case .Changed:
                 self.updateInteractiveTransition(progress)
                 
-                // the following progress thresholds are different due to the nature of the
-                // easing of the animation. these were determined by "feel" to match the gesture best
-                if self.reverseAnimation == false && progress >= 0.75 {
-                    self.finishInteractiveTransition()
-                }
-                else if self.reverseAnimation && progress >= 0.95 {
+                if progress >= 0.995 {
                     self.finishInteractiveTransition()
                 }
                 break

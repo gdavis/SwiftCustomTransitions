@@ -17,7 +17,6 @@ class TransitionsTableView: UITableViewController, UIViewControllerTransitioning
         case cube = "cubeDetailViewController"
     }
     
-    
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath)
     {
         switch (indexPath.row) {
@@ -75,7 +74,6 @@ class TransitionsTableView: UITableViewController, UIViewControllerTransitioning
         }
         return nil
     }
-    
     
     func animationControllerForDismissedController(dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning?
     {

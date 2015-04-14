@@ -42,10 +42,7 @@ class PopupAnimationController: NSObject, UIViewControllerAnimatedTransitioning
         let containerView = transitionContext.containerView()
         let popupViewController = transitionContext.viewControllerForKey(UITransitionContextToViewControllerKey)!
         let popupView = popupViewController.view
-        
-        containerView.addSubview(self.dimmerView)
-        popupView.frame = CGRect(origin: CGPointZero, size: popupViewController.preferredContentSize)
-        popupView.center = containerView.center
+        let popupSize = popupViewController.preferredContentSize
         
         let scaleValues: [NSValue] = [
             NSValue(CATransform3D: CATransform3DMakeScale(0, 0, 1)),
@@ -65,6 +62,7 @@ class PopupAnimationController: NSObject, UIViewControllerAnimatedTransitioning
             CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut),
         ]
         transformAnimation.completionBlock = { (finished: Bool) -> Void in
+            
             transitionContext.completeTransition(finished)
         }
         
@@ -77,7 +75,10 @@ class PopupAnimationController: NSObject, UIViewControllerAnimatedTransitioning
         dimmerFadeAnimation.completionBlock = { (finished: Bool) -> Void in
             if finished {
                 containerView.addSubview(popupView)
+                
+                // set the layer to its final value before adding the animation
                 popupView.layer.transform = CATransform3DIdentity
+                
                 popupView.layer.addAnimation(transformAnimation, forKey: "transformAnimation")
             }
             else {
@@ -85,7 +86,15 @@ class PopupAnimationController: NSObject, UIViewControllerAnimatedTransitioning
             }
         }
         
+        popupView.frame = CGRect(origin: CGPointZero, size: popupSize)
+        popupView.center = containerView.center
+        
+        // display the dimmer
+        containerView.addSubview(self.dimmerView)
         self.dimmerView.frame = containerView.bounds
+        
+        
+        // set the layer to its final value before adding the animation
         self.dimmerView.layer.opacity = 1
         self.dimmerView.layer.addAnimation(dimmerFadeAnimation, forKey: "dimmerFadeAnimation")
     }
