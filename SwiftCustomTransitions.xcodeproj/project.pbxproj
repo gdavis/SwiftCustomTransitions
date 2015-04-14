@@ -16,21 +16,10 @@
 		77F80F401AA1641B00083B91 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 77F80F3E1AA1641B00083B91 /* Main.storyboard */; };
 		77F80F421AA1641B00083B91 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 77F80F411AA1641B00083B91 /* Images.xcassets */; };
 		77F80F451AA1641B00083B91 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 77F80F431AA1641B00083B91 /* LaunchScreen.xib */; };
-		77F80F511AA1641B00083B91 /* SwiftCustomTransitionsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77F80F501AA1641B00083B91 /* SwiftCustomTransitionsTests.swift */; };
 		77F80F5B1AA1649900083B91 /* TransitionsTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77F80F5A1AA1649900083B91 /* TransitionsTableView.swift */; };
 		77F80F5D1AA1661800083B91 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77F80F5C1AA1661800083B91 /* DetailViewController.swift */; };
 		77F80F5F1AA16A7F00083B91 /* ZoomAnimationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77F80F5E1AA16A7F00083B91 /* ZoomAnimationController.swift */; };
 /* End PBXBuildFile section */
-
-/* Begin PBXContainerItemProxy section */
-		77F80F4B1AA1641B00083B91 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 77F80F2D1AA1641B00083B91 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 77F80F341AA1641B00083B91;
-			remoteInfo = SwiftCustomTransitions;
-		};
-/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		77D360FD1AA2AB47000B7B57 /* PopupAnimationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PopupAnimationController.swift; sourceTree = "<group>"; };
@@ -44,9 +33,6 @@
 		77F80F3F1AA1641B00083B91 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		77F80F411AA1641B00083B91 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		77F80F441AA1641B00083B91 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
-		77F80F4A1AA1641B00083B91 /* SwiftCustomTransitionsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SwiftCustomTransitionsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		77F80F4F1AA1641B00083B91 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		77F80F501AA1641B00083B91 /* SwiftCustomTransitionsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftCustomTransitionsTests.swift; sourceTree = "<group>"; };
 		77F80F5A1AA1649900083B91 /* TransitionsTableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransitionsTableView.swift; sourceTree = "<group>"; };
 		77F80F5C1AA1661800083B91 /* DetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		77F80F5E1AA16A7F00083B91 /* ZoomAnimationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZoomAnimationController.swift; sourceTree = "<group>"; };
@@ -54,13 +40,6 @@
 
 /* Begin PBXFrameworksBuildPhase section */
 		77F80F321AA1641B00083B91 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		77F80F471AA1641B00083B91 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -103,7 +82,6 @@
 			isa = PBXGroup;
 			children = (
 				77F80F371AA1641B00083B91 /* SwiftCustomTransitions */,
-				77F80F4D1AA1641B00083B91 /* SwiftCustomTransitionsTests */,
 				77F80F361AA1641B00083B91 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -112,7 +90,6 @@
 			isa = PBXGroup;
 			children = (
 				77F80F351AA1641B00083B91 /* SwiftCustomTransitions.app */,
-				77F80F4A1AA1641B00083B91 /* SwiftCustomTransitionsTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -140,23 +117,6 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		77F80F4D1AA1641B00083B91 /* SwiftCustomTransitionsTests */ = {
-			isa = PBXGroup;
-			children = (
-				77F80F501AA1641B00083B91 /* SwiftCustomTransitionsTests.swift */,
-				77F80F4E1AA1641B00083B91 /* Supporting Files */,
-			);
-			path = SwiftCustomTransitionsTests;
-			sourceTree = "<group>";
-		};
-		77F80F4E1AA1641B00083B91 /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				77F80F4F1AA1641B00083B91 /* Info.plist */,
-			);
-			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -177,24 +137,6 @@
 			productReference = 77F80F351AA1641B00083B91 /* SwiftCustomTransitions.app */;
 			productType = "com.apple.product-type.application";
 		};
-		77F80F491AA1641B00083B91 /* SwiftCustomTransitionsTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 77F80F571AA1641B00083B91 /* Build configuration list for PBXNativeTarget "SwiftCustomTransitionsTests" */;
-			buildPhases = (
-				77F80F461AA1641B00083B91 /* Sources */,
-				77F80F471AA1641B00083B91 /* Frameworks */,
-				77F80F481AA1641B00083B91 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				77F80F4C1AA1641B00083B91 /* PBXTargetDependency */,
-			);
-			name = SwiftCustomTransitionsTests;
-			productName = SwiftCustomTransitionsTests;
-			productReference = 77F80F4A1AA1641B00083B91 /* SwiftCustomTransitionsTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -206,10 +148,6 @@
 				TargetAttributes = {
 					77F80F341AA1641B00083B91 = {
 						CreatedOnToolsVersion = 6.3;
-					};
-					77F80F491AA1641B00083B91 = {
-						CreatedOnToolsVersion = 6.3;
-						TestTargetID = 77F80F341AA1641B00083B91;
 					};
 				};
 			};
@@ -227,7 +165,6 @@
 			projectRoot = "";
 			targets = (
 				77F80F341AA1641B00083B91 /* SwiftCustomTransitions */,
-				77F80F491AA1641B00083B91 /* SwiftCustomTransitionsTests */,
 			);
 		};
 /* End PBXProject section */
@@ -240,13 +177,6 @@
 				77F80F401AA1641B00083B91 /* Main.storyboard in Resources */,
 				77F80F451AA1641B00083B91 /* LaunchScreen.xib in Resources */,
 				77F80F421AA1641B00083B91 /* Images.xcassets in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		77F80F481AA1641B00083B91 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -269,23 +199,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		77F80F461AA1641B00083B91 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				77F80F511AA1641B00083B91 /* SwiftCustomTransitionsTests.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		77F80F4C1AA1641B00083B91 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 77F80F341AA1641B00083B91 /* SwiftCustomTransitions */;
-			targetProxy = 77F80F4B1AA1641B00083B91 /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		77F80F3E1AA1641B00083B91 /* Main.storyboard */ = {
@@ -411,40 +325,6 @@
 			};
 			name = Release;
 		};
-		77F80F581AA1641B00083B91 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-				);
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = SwiftCustomTransitionsTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SwiftCustomTransitions.app/SwiftCustomTransitions";
-			};
-			name = Debug;
-		};
-		77F80F591AA1641B00083B91 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = SwiftCustomTransitionsTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SwiftCustomTransitions.app/SwiftCustomTransitions";
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -462,15 +342,6 @@
 			buildConfigurations = (
 				77F80F551AA1641B00083B91 /* Debug */,
 				77F80F561AA1641B00083B91 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		77F80F571AA1641B00083B91 /* Build configuration list for PBXNativeTarget "SwiftCustomTransitionsTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				77F80F581AA1641B00083B91 /* Debug */,
-				77F80F591AA1641B00083B91 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
