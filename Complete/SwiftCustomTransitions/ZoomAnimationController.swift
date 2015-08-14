@@ -12,7 +12,7 @@ class ZoomAnimationController: NSObject, UIViewControllerAnimatedTransitioning
 {
     private struct Zoom
     {
-        static let minimum: CGFloat = 0.7, maximum: CGFloat = 2.0
+        static let minimum: CGFloat = 0.1, maximum: CGFloat = 5.0
     }
     
     var reverseAnimation = false
@@ -86,7 +86,7 @@ class ZoomAnimationController: NSObject, UIViewControllerAnimatedTransitioning
         tableView.alpha = 0
         tableView.transform = CGAffineTransformMakeScale(Zoom.minimum, Zoom.minimum)
         
-        UIView.animateWithDuration(self.transitionDuration(transitionContext), delay: 0, options: UIViewAnimationOptions.CurveEaseInOut, animations: { () -> Void in
+        UIView.animateWithDuration(self.transitionDuration(transitionContext), delay: 0, options: UIViewAnimationOptions.CurveEaseOut, animations: { () -> Void in
             
             tableView.alpha = 1
             tableView.transform = CGAffineTransformIdentity
