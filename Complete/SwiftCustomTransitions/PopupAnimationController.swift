@@ -46,18 +46,18 @@ class PopupAnimationController: NSObject, UIViewControllerAnimatedTransitioning
         
         let scaleValues: [NSValue] = [
             NSValue(CATransform3D: CATransform3DScale(CATransform3DMakeTranslation(0, -500, 0), 0, 0, 1)),
-            NSValue(CATransform3D: CATransform3DTranslate(CATransform3DMakeScale(1.1, 1.1, 1), 0, 50, 0)),
-            NSValue(CATransform3D: CATransform3DTranslate(CATransform3DMakeScale(0.95, 0.95, 1), 0, -10, 0)),
+            NSValue(CATransform3D: CATransform3DTranslate(CATransform3DMakeScale(1.2, 0.75, 1), 0, 200, 0)),
+            NSValue(CATransform3D: CATransform3DTranslate(CATransform3DMakeScale(0.8, 1.3, 1), 0, -55, 0)),
             NSValue(CATransform3D: CATransform3DIdentity)
         ]
         
         let transformAnimation = CAKeyframeAnimation(keyPath: "transform")
         transformAnimation.duration = duration * 0.7
         transformAnimation.values = scaleValues
-        transformAnimation.keyTimes = [0, 0.4, 0.8, 1]
+        transformAnimation.keyTimes = [0, 0.3, 0.6, 1]
         transformAnimation.fillMode = kCAFillModeBoth
         transformAnimation.timingFunctions = [
-            CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseOut),
+            CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut),
             CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut),
             CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut),
         ]
@@ -118,8 +118,8 @@ class PopupAnimationController: NSObject, UIViewControllerAnimatedTransitioning
         
         let scaleValues: [NSValue] = [
             NSValue(CATransform3D: CATransform3DIdentity),
-            NSValue(CATransform3D: CATransform3DTranslate(CATransform3DMakeScale(1.2, 1.2, 1), 0, -10, 0)),
-            NSValue(CATransform3D: CATransform3DScale(CATransform3DMakeTranslation(0, 500, 0), 0, 0, 1)),
+            NSValue(CATransform3D: CATransform3DTranslate(CATransform3DMakeScale(1.2, 0.9, 1), 0, -50, 0)),
+            NSValue(CATransform3D: CATransform3DScale(CATransform3DMakeTranslation(0, 500, 0), 0, 0.5, 1)),
         ]
         
         let transformAnimation = CAKeyframeAnimation(keyPath: "transform")
@@ -128,7 +128,7 @@ class PopupAnimationController: NSObject, UIViewControllerAnimatedTransitioning
         transformAnimation.keyTimes = [0, 0.7, 1]
         transformAnimation.fillMode = kCAFillModeBoth
         transformAnimation.timingFunctions = [
-            CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseOut),
+            CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut),
             CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseIn),
         ]
         transformAnimation.completionBlock = { (finished: Bool) -> Void in

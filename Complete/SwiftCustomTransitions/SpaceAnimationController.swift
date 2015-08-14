@@ -68,7 +68,7 @@ class SpaceAnimationController: NSObject, UIViewControllerAnimatedTransitioning 
         
         let destinationImageFrame = spaceViewController.imageView.convertRect(spaceViewController.imageView.bounds, toView: containerView)
         
-        UIView.animateWithDuration(duration, animations: { () -> Void in
+        UIView.animateWithDuration(duration, delay: 0, options: .CurveEaseOut, animations: { () -> Void in
             self.animationImageView.frame = destinationImageFrame
             }, completion: { (finished: Bool) -> Void in
                 
@@ -105,7 +105,7 @@ class SpaceAnimationController: NSObject, UIViewControllerAnimatedTransitioning 
         
         let destinationImageFrame = cellImageView.convertRect(cellImageView.bounds, toView: containerView)
         
-        UIView.animateWithDuration(duration, animations: { () -> Void in
+        UIView.animateWithDuration(duration, delay: 0, options: .CurveEaseInOut, animations: { () -> Void in
             
             self.animationImageView.frame = destinationImageFrame
             
