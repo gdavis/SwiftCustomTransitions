@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>IDECodeSnippetCompletionPrefix</key>
-	<string>$ct7</string>
+	<string>$ct8</string>
 	<key>IDECodeSnippetCompletionScopes</key>
 	<array>
 		<string>ClassImplementation</string>
@@ -18,7 +18,7 @@ let Duration: CFTimeInterval = 0.65
 var reverseAnimation = false
 var transitionContext: UIViewControllerContextTransitioning?
 
-// $ct9 - add interactive variables
+// $ct10 - add interactive variables
 
 //MARK: - UIViewControllerAnimatedTransitioning
 
@@ -67,7 +67,7 @@ func animateTransition(transitionContext: UIViewControllerContextTransitioning)
 }
 
 
-// TODO: $ct10 - Add Interaction
+// TODO: $ct11 - Add Interaction
 
 
 //MARK: - Helpers
@@ -128,12 +128,12 @@ func createCubeTransformAnimation(rotation: CGFloat, view: UIView, presenting: B
 	<key>IDECodeSnippetLanguage</key>
 	<string>Xcode.SourceCodeLanguage.Swift</string>
 	<key>IDECodeSnippetSummary</key>
-	<string>7</string>
+	<string>8</string>
 	<key>IDECodeSnippetTitle</key>
-	<string>Custom Transition - 7 - Cube Animation</string>
+	<string>Custom Transition - 8 - Cube Animation</string>
 	<key>IDECodeSnippetUserSnippet</key>
 	<true/>
 	<key>IDECodeSnippetVersion</key>
-	<integer>0</integer>
+	<integer>2</integer>
 </dict>
 </plist>

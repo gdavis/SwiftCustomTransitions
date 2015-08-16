@@ -10,30 +10,30 @@
 	</array>
 	<key>IDECodeSnippetContents</key>
 	<string>private struct Zoom
-    {
-        static let minimum: CGFloat = 0.7, maximum: CGFloat = 2.0
+{
+    static let minimum: CGFloat = 0.1, maximum: CGFloat = 5.0
+}
+
+var reverseAnimation = false
+
+
+//MARK: - &lt;UIViewControllerAnimatedTransitioning&gt;
+
+func transitionDuration(transitionContext: UIViewControllerContextTransitioning) -&gt; NSTimeInterval
+{
+    return 0.5
+}
+
+
+func animateTransition(transitionContext: UIViewControllerContextTransitioning)
+{
+    if self.reverseAnimation {
+        animateOut(transitionContext)
     }
-    
-    var reverseAnimation = false
-    
-    
-    //MARK: - &lt;UIViewControllerAnimatedTransitioning&gt;
-    
-    func transitionDuration(transitionContext: UIViewControllerContextTransitioning) -&gt; NSTimeInterval
-    {
-        return 0.5
+    else {
+        animateIn(transitionContext)
     }
-    
-    
-    func animateTransition(transitionContext: UIViewControllerContextTransitioning)
-    {
-        if self.reverseAnimation {
-            animateOut(transitionContext)
-        }
-        else {
-            animateIn(transitionContext)
-        }
-    }</string>
+}</string>
 	<key>IDECodeSnippetIdentifier</key>
 	<string>821697B8-E514-4677-A66F-2A3793515B7A</string>
 	<key>IDECodeSnippetLanguage</key>

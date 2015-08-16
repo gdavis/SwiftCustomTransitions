@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDECodeSnippetCompletionPrefix</key>
+	<string>$ct4</string>
+	<key>IDECodeSnippetCompletionScopes</key>
+	<array>
+		<string>ClassImplementation</string>
+	</array>
+	<key>IDECodeSnippetContents</key>
+	<string>required init(coder aDecoder: NSCoder)
+    {
+        super.init(coder: aDecoder)
+        self.transitioningDelegate = self
+        self.modalPresentationStyle = .Custom
+    }
+    
+    
+    //MARK: - &lt;UIViewControllerTransitioningDelegate&gt;
+    
+    lazy var popupAnimation = PopupAnimationController()
+    
+    func animationControllerForPresentedController(presented: UIViewController, presentingController presenting: UIViewController, sourceController source: UIViewController) -&gt; UIViewControllerAnimatedTransitioning?
+    {
+        self.popupAnimation.reverseAnimation = false
+        return self.popupAnimation
+    }
+    
+    func animationControllerForDismissedController(dismissed: UIViewController) -&gt; UIViewControllerAnimatedTransitioning?
+    {
+        self.popupAnimation.reverseAnimation = true
+        return self.popupAnimation
+    }</string>
+	<key>IDECodeSnippetIdentifier</key>
+	<string>3B8E8E2F-BB0D-4A49-993B-E2EF854DCBF4</string>
+	<key>IDECodeSnippetLanguage</key>
+	<string>Xcode.SourceCodeLanguage.Swift</string>
+	<key>IDECodeSnippetSummary</key>
+	<string>4</string>
+	<key>IDECodeSnippetTitle</key>
+	<string>Custom Transition - 4 - Popup VC Methods</string>
+	<key>IDECodeSnippetUserSnippet</key>
+	<true/>
+	<key>IDECodeSnippetVersion</key>
+	<integer>2</integer>
+</dict>
+</plist>

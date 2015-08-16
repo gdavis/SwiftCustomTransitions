@@ -3,44 +3,44 @@
 <plist version="1.0">
 <dict>
 	<key>IDECodeSnippetCompletionPrefix</key>
-	<string>$ct4</string>
+	<string>$ct5</string>
 	<key>IDECodeSnippetCompletionScopes</key>
 	<array>
 		<string>ClassImplementation</string>
 	</array>
 	<key>IDECodeSnippetContents</key>
 	<string>var reverseAnimation: Bool = false
-    
-    lazy var dimmerView: UIView = {
-        let view = UIView(frame: CGRectZero)
-        view.backgroundColor = UIColor.blackColor().colorWithAlphaComponent(0.8)
-        return view
+
+lazy var dimmerView: UIView = {
+    let view = UIView(frame: CGRectZero)
+    view.backgroundColor = UIColor.blackColor().colorWithAlphaComponent(0.8)
+    return view
     }()
-    
-    
-    func transitionDuration(transitionContext: UIViewControllerContextTransitioning) -&gt; NSTimeInterval
-    {
-        return 1.25
+
+
+func transitionDuration(transitionContext: UIViewControllerContextTransitioning) -&gt; NSTimeInterval
+{
+    return 1.25
+}
+
+
+func animateTransition(transitionContext: UIViewControllerContextTransitioning)
+{
+    if self.reverseAnimation {
+        animateOut(transitionContext)
     }
-    
-    
-    func animateTransition(transitionContext: UIViewControllerContextTransitioning)
-    {
-        if self.reverseAnimation {
-            animateOut(transitionContext)
-        }
-        else {
-            animateIn(transitionContext)
-        }
-    }</string>
+    else {
+        animateIn(transitionContext)
+    }
+}</string>
 	<key>IDECodeSnippetIdentifier</key>
 	<string>9EE5FF40-618F-4E05-ACD6-8A8AA8AB39C8</string>
 	<key>IDECodeSnippetLanguage</key>
 	<string>Xcode.SourceCodeLanguage.Swift</string>
 	<key>IDECodeSnippetSummary</key>
-	<string>4</string>
+	<string>5</string>
 	<key>IDECodeSnippetTitle</key>
-	<string>Custom Transition - 4- Popup Protocols</string>
+	<string>Custom Transition - 5- Popup Protocols</string>
 	<key>IDECodeSnippetUserSnippet</key>
 	<true/>
 	<key>IDECodeSnippetVersion</key>
