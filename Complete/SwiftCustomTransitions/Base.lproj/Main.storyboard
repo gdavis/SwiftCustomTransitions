@@ -197,10 +197,10 @@
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VLe-la-zGH">
-                                <rect key="frame" x="16" y="253" width="568" height="95"/>
-                                <string key="text">Exploration is in our nature. We began as wanderers, and we are wanderers still. We have lingered long enough on the shores of the cosmic ocean. We are ready at last to set sail for the stars.
+                                <rect key="frame" x="16" y="253" width="552" height="95"/>
+                                <string key="text">Animation can explain whatever the mind of man can conceive. This facility makes it the most versatile and explicit means of communication yet devised for quick mass appreciation.
 
-― Carl Sagan, Cosmos</string>
+–Walt Disney</string>
                                 <fontDescription key="fontDescription" name="DINAlternate-Bold" family="DIN Alternate" pointSize="16"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
@@ -211,9 +211,8 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="tHi-GO-9h1" firstAttribute="top" secondItem="tFK-X5-fRb" secondAttribute="top" id="LU7-t0-oIx"/>
-                            <constraint firstAttribute="trailing" secondItem="VLe-la-zGH" secondAttribute="trailing" constant="16" id="ekG-vE-8Gt"/>
+                            <constraint firstAttribute="trailing" secondItem="VLe-la-zGH" secondAttribute="trailing" constant="32" id="ekG-vE-8Gt"/>
                             <constraint firstItem="pPz-CU-UAE" firstAttribute="top" secondItem="tHi-GO-9h1" secondAttribute="bottom" id="j6o-re-trK"/>
-                            <constraint firstAttribute="centerX" secondItem="VLe-la-zGH" secondAttribute="centerX" id="laV-85-4IP"/>
                             <constraint firstItem="tHi-GO-9h1" firstAttribute="leading" secondItem="j7Q-2d-KTO" secondAttribute="leading" id="myF-ih-frR"/>
                             <constraint firstAttribute="centerY" secondItem="VLe-la-zGH" secondAttribute="centerY" id="pZK-xX-da5"/>
                             <constraint firstAttribute="trailing" secondItem="tHi-GO-9h1" secondAttribute="trailing" id="q4i-GL-qFp"/>

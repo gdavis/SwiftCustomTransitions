@@ -27,14 +27,12 @@ class TransitionsTableView: UITableViewController, UIViewControllerTransitioning
             detailVC.transitioningDelegate = self
             detailVC.modalPresentationStyle = UIModalPresentationStyle.Custom
             self.presentViewController(detailVC, animated: true, completion: nil)
-            
             break
             
         case 1:
             
             let popupVC = self.storyboard!.instantiateViewControllerWithIdentifier(ViewControllerIdentifiers.popup.rawValue) as! UIViewController
             self.presentViewController(popupVC, animated: true, completion: nil)
-            
             break
         
         case 2:
@@ -44,7 +42,6 @@ class TransitionsTableView: UITableViewController, UIViewControllerTransitioning
             detailVC.modalPresentationStyle = UIModalPresentationStyle.Custom
             self.navigationController?.delegate = self
             self.navigationController?.pushViewController(detailVC, animated: true)
-            
             break
             
         case 3:
