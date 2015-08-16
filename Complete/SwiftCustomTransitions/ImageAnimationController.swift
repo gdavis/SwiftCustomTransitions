@@ -1,5 +1,5 @@
 //
-//  SpaceAnimationController.swift
+//  ImageAnimationController.swift
 //  SwiftCustomTransitions
 //
 //  Created by Grant Davis on 8/14/15.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class SpaceAnimationController: NSObject, UIViewControllerAnimatedTransitioning {
+class ImageAnimationController: NSObject, UIViewControllerAnimatedTransitioning {
    
     
     var reverseAnimation = false
@@ -50,17 +50,17 @@ class SpaceAnimationController: NSObject, UIViewControllerAnimatedTransitioning 
         // pull out values we need from the context
         let tableNavigationController = transitionContext.viewControllerForKey(UITransitionContextFromViewControllerKey) as! UINavigationController
         let tableViewController = tableNavigationController.topViewController as! TransitionsTableView
-        let spaceViewController = transitionContext.viewControllerForKey(UITransitionContextToViewControllerKey) as! SpaceViewController
+        let imageViewController = transitionContext.viewControllerForKey(UITransitionContextToViewControllerKey) as! ImageViewController
         let containerView = transitionContext.containerView()
-        let destinationViewFrame = transitionContext.finalFrameForViewController(spaceViewController)
+        let destinationViewFrame = transitionContext.finalFrameForViewController(imageViewController)
         
         // size the destination view
-        spaceViewController.view.frame = destinationViewFrame
-        containerView.addSubview(spaceViewController.view)
+        imageViewController.view.frame = destinationViewFrame
+        containerView.addSubview(imageViewController.view)
         containerView.layoutIfNeeded()
         
         // hide the destination view until the image animates into place
-        spaceViewController.view.hidden = true
+        imageViewController.view.hidden = true
         
         // get a reference to the cell's image view
         let indexPath = NSIndexPath(forRow: 3, inSection: 0)
@@ -81,7 +81,7 @@ class SpaceAnimationController: NSObject, UIViewControllerAnimatedTransitioning 
         }, completion: nil)
         
         // size the image to match the destination view frame
-        let destinationImageFrame = spaceViewController.imageView.convertRect(spaceViewController.imageView.bounds, toView: containerView)
+        let destinationImageFrame = imageViewController.imageView.convertRect(imageViewController.imageView.bounds, toView: containerView)
         
         UIView.animateWithDuration(duration * 0.75, delay: duration * 0.25, options: .CurveEaseInOut, animations: { () -> Void in
             
@@ -94,7 +94,7 @@ class SpaceAnimationController: NSObject, UIViewControllerAnimatedTransitioning 
                 self.animationImageView.removeFromSuperview()
                 
                 // show the destination view 
-                spaceViewController.view.hidden = false
+                imageViewController.view.hidden = false
                 
                 // finish the transition
                 transitionContext.completeTransition(true)
@@ -108,7 +108,7 @@ class SpaceAnimationController: NSObject, UIViewControllerAnimatedTransitioning 
         // pull out values we need from the context
         let tableNavigationController = transitionContext.viewControllerForKey(UITransitionContextToViewControllerKey) as! UINavigationController
         let tableViewController = tableNavigationController.topViewController as! TransitionsTableView
-        let spaceViewController = transitionContext.viewControllerForKey(UITransitionContextFromViewControllerKey) as! SpaceViewController
+        let imageViewController = transitionContext.viewControllerForKey(UITransitionContextFromViewControllerKey) as! ImageViewController
         let containerView = transitionContext.containerView()
         
         // get a reference to the cell's image view
@@ -118,10 +118,10 @@ class SpaceAnimationController: NSObject, UIViewControllerAnimatedTransitioning 
         
         // configure the animation image view with the cell's image and frame
         self.animationImageView.image = cellImageView.image
-        self.animationImageView.frame = spaceViewController.imageView.convertRect(spaceViewController.imageView.bounds, toView: containerView)
+        self.animationImageView.frame = imageViewController.imageView.convertRect(imageViewController.imageView.bounds, toView: containerView)
         
         // remove the view we're transitioning from
-        spaceViewController.view.removeFromSuperview()
+        imageViewController.view.removeFromSuperview()
         
         // place the animation image on top
         containerView.addSubview(self.animationImageView)

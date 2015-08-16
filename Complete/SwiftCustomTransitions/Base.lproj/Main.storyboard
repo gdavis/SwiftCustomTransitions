@@ -181,10 +181,10 @@
             </objects>
             <point key="canvasLocation" x="-580" y="1070"/>
         </scene>
-        <!--Space View Controller-->
+        <!--Image View Controller-->
         <scene sceneID="nVJ-Uo-Pyk">
             <objects>
-                <viewController storyboardIdentifier="spaceViewController" id="3l9-jz-2Gz" customClass="SpaceViewController" customModule="SwiftCustomTransitions" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="imageViewController" id="3l9-jz-2Gz" customClass="ImageViewController" customModule="SwiftCustomTransitions" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="tFK-X5-fRb"/>
                         <viewControllerLayoutGuide type="bottom" id="pPz-CU-UAE"/>

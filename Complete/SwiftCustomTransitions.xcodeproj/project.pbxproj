@@ -13,8 +13,8 @@
 		77EC4A5D1AD1A81B0009CA9F /* CubeAnimationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77EC4A5C1AD1A81B0009CA9F /* CubeAnimationController.swift */; };
 		77EC4A621AD1AD960009CA9F /* CubeDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77EC4A611AD1AD960009CA9F /* CubeDetailViewController.swift */; };
 		77F132CC1B7E486100ACA03B /* space.png in Resources */ = {isa = PBXBuildFile; fileRef = 77F132CA1B7E486100ACA03B /* space.png */; };
-		77F132CE1B7E48D500ACA03B /* SpaceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77F132CD1B7E48D500ACA03B /* SpaceViewController.swift */; };
-		77F132D01B7E498300ACA03B /* SpaceAnimationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77F132CF1B7E498300ACA03B /* SpaceAnimationController.swift */; };
+		77F132CE1B7E48D500ACA03B /* ImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77F132CD1B7E48D500ACA03B /* ImageViewController.swift */; };
+		77F132D01B7E498300ACA03B /* ImageAnimationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77F132CF1B7E498300ACA03B /* ImageAnimationController.swift */; };
 		77F80F3B1AA1641B00083B91 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77F80F3A1AA1641B00083B91 /* AppDelegate.swift */; };
 		77F80F401AA1641B00083B91 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 77F80F3E1AA1641B00083B91 /* Main.storyboard */; };
 		77F80F421AA1641B00083B91 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 77F80F411AA1641B00083B91 /* Images.xcassets */; };
@@ -31,8 +31,8 @@
 		77EC4A5C1AD1A81B0009CA9F /* CubeAnimationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CubeAnimationController.swift; sourceTree = "<group>"; };
 		77EC4A611AD1AD960009CA9F /* CubeDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CubeDetailViewController.swift; sourceTree = "<group>"; };
 		77F132CA1B7E486100ACA03B /* space.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = space.png; sourceTree = "<group>"; };
-		77F132CD1B7E48D500ACA03B /* SpaceViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpaceViewController.swift; sourceTree = "<group>"; };
-		77F132CF1B7E498300ACA03B /* SpaceAnimationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpaceAnimationController.swift; sourceTree = "<group>"; };
+		77F132CD1B7E48D500ACA03B /* ImageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageViewController.swift; sourceTree = "<group>"; };
+		77F132CF1B7E498300ACA03B /* ImageAnimationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageAnimationController.swift; sourceTree = "<group>"; };
 		77F80F351AA1641B00083B91 /* SwiftCustomTransitions.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SwiftCustomTransitions.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		77F80F391AA1641B00083B91 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		77F80F3A1AA1641B00083B91 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -61,7 +61,7 @@
 				77F80F5E1AA16A7F00083B91 /* ZoomAnimationController.swift */,
 				77D360FD1AA2AB47000B7B57 /* PopupAnimationController.swift */,
 				77EC4A5C1AD1A81B0009CA9F /* CubeAnimationController.swift */,
-				77F132CF1B7E498300ACA03B /* SpaceAnimationController.swift */,
+				77F132CF1B7E498300ACA03B /* ImageAnimationController.swift */,
 			);
 			name = Transitions;
 			sourceTree = "<group>";
@@ -73,7 +73,7 @@
 				77F80F5C1AA1661800083B91 /* DetailViewController.swift */,
 				77D360FF1AA2AD74000B7B57 /* PopupViewController.swift */,
 				77EC4A611AD1AD960009CA9F /* CubeDetailViewController.swift */,
-				77F132CD1B7E48D500ACA03B /* SpaceViewController.swift */,
+				77F132CD1B7E48D500ACA03B /* ImageViewController.swift */,
 			);
 			name = "View Controllers";
 			sourceTree = "<group>";
@@ -199,12 +199,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				77EC4A5D1AD1A81B0009CA9F /* CubeAnimationController.swift in Sources */,
-				77F132D01B7E498300ACA03B /* SpaceAnimationController.swift in Sources */,
+				77F132D01B7E498300ACA03B /* ImageAnimationController.swift in Sources */,
 				77F80F5F1AA16A7F00083B91 /* ZoomAnimationController.swift in Sources */,
 				77D360FE1AA2AB47000B7B57 /* PopupAnimationController.swift in Sources */,
 				77F80F5B1AA1649900083B91 /* TransitionsTableView.swift in Sources */,
 				77D361021AA378D0000B7B57 /* CAAnimationBlocks.swift in Sources */,
-				77F132CE1B7E48D500ACA03B /* SpaceViewController.swift in Sources */,
+				77F132CE1B7E48D500ACA03B /* ImageViewController.swift in Sources */,
 				77EC4A621AD1AD960009CA9F /* CubeDetailViewController.swift in Sources */,
 				77F80F3B1AA1641B00083B91 /* AppDelegate.swift in Sources */,
 				77F80F5D1AA1661800083B91 /* DetailViewController.swift in Sources */,

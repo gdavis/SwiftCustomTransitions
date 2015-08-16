@@ -15,7 +15,7 @@ class TransitionsTableView: UITableViewController, UIViewControllerTransitioning
         case detail = "detailViewController"
         case popup = "popupViewController"
         case cube = "cubeDetailViewController"
-        case space = "spaceViewController"
+        case image = "imageViewController"
     }
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath)
@@ -46,10 +46,10 @@ class TransitionsTableView: UITableViewController, UIViewControllerTransitioning
             
         case 3:
             
-            let spaceVC = self.storyboard!.instantiateViewControllerWithIdentifier(ViewControllerIdentifiers.space.rawValue) as! UIViewController
-            spaceVC.transitioningDelegate = self
-            spaceVC.modalPresentationStyle = UIModalPresentationStyle.Custom
-            self.presentViewController(spaceVC, animated: true, completion: nil)
+            let imageVC = self.storyboard!.instantiateViewControllerWithIdentifier(ViewControllerIdentifiers.image.rawValue) as! UIViewController
+            imageVC.transitioningDelegate = self
+            imageVC.modalPresentationStyle = UIModalPresentationStyle.Custom
+            self.presentViewController(imageVC, animated: true, completion: nil)
             break
             
         default:
@@ -64,7 +64,7 @@ class TransitionsTableView: UITableViewController, UIViewControllerTransitioning
     
     lazy var zoomAnimation = ZoomAnimationController()
     lazy var cubeAnimation = CubeAnimationController()
-    lazy var spaceAnimation = SpaceAnimationController()
+    lazy var imageAnimation = ImageAnimationController()
     
     func animationControllerForPresentedController(presented: UIViewController, presentingController presenting: UIViewController, sourceController source: UIViewController) -> UIViewControllerAnimatedTransitioning?
     {
@@ -72,9 +72,9 @@ class TransitionsTableView: UITableViewController, UIViewControllerTransitioning
             self.zoomAnimation.reverseAnimation = false
             return self.zoomAnimation
         }
-        else if presented.isKindOfClass(SpaceViewController) {
-            self.spaceAnimation.reverseAnimation = false
-            return self.spaceAnimation
+        else if presented.isKindOfClass(ImageViewController) {
+            self.imageAnimation.reverseAnimation = false
+            return self.imageAnimation
         }
         return nil
     }
@@ -85,9 +85,9 @@ class TransitionsTableView: UITableViewController, UIViewControllerTransitioning
             self.zoomAnimation.reverseAnimation = true
             return self.zoomAnimation
         }
-        else if dismissed.isKindOfClass(SpaceViewController) {
-            self.spaceAnimation.reverseAnimation = true
-            return self.spaceAnimation
+        else if dismissed.isKindOfClass(ImageViewController) {
+            self.imageAnimation.reverseAnimation = true
+            return self.imageAnimation
         }
         return nil
     }

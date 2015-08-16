@@ -1,5 +1,5 @@
 //
-//  SpaceViewController.swift
+//  ImageViewController.swift
 //  SwiftCustomTransitions
 //
 //  Created by Grant Davis on 8/14/15.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class SpaceViewController: UIViewController {
+class ImageViewController: UIViewController {
     
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var quoteLabel: UILabel!
