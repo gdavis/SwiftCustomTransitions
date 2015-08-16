@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7528.3" systemVersion="14D113c" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="173-cQ-H9w">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="173-cQ-H9w">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7518.3"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
     </dependencies>
     <scenes>
         <!--Navigation Controller-->
@@ -70,6 +70,23 @@
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                    <tableViewCell contentMode="center" selectionStyle="default" indentationWidth="10" textLabel="1G8-JL-JYS" imageView="7l4-Mw-JcH" style="IBUITableViewCellStyleDefault" id="8s1-yb-WD0">
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="8s1-yb-WD0" id="qJt-Te-nh0">
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Image Animation" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="1G8-JL-JYS">
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" image="space.png" id="7l4-Mw-JcH">
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                </imageView>
                                             </subviews>
                                         </tableViewCellContentView>
                                     </tableViewCell>
@@ -164,6 +181,54 @@
             </objects>
             <point key="canvasLocation" x="-580" y="1070"/>
         </scene>
+        <!--Image View Controller-->
+        <scene sceneID="nVJ-Uo-Pyk">
+            <objects>
+                <viewController storyboardIdentifier="imageViewController" id="3l9-jz-2Gz" customClass="ImageViewController" customModule="SwiftCustomTransitions" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="tFK-X5-fRb"/>
+                        <viewControllerLayoutGuide type="bottom" id="pPz-CU-UAE"/>
+                    </layoutGuides>
+                    <view key="view" clipsSubviews="YES" contentMode="scaleToFill" id="j7Q-2d-KTO">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="space.png" translatesAutoresizingMaskIntoConstraints="NO" id="tHi-GO-9h1">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VLe-la-zGH">
+                                <rect key="frame" x="16" y="253" width="552" height="95"/>
+                                <string key="text">Animation can explain whatever the mind of man can conceive. This facility makes it the most versatile and explicit means of communication yet devised for quick mass appreciation.
+
+–Walt Disney</string>
+                                <fontDescription key="fontDescription" name="DINAlternate-Bold" family="DIN Alternate" pointSize="16"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                                <color key="shadowColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                <size key="shadowOffset" width="1" height="1"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="tHi-GO-9h1" firstAttribute="top" secondItem="tFK-X5-fRb" secondAttribute="top" id="LU7-t0-oIx"/>
+                            <constraint firstAttribute="trailing" secondItem="VLe-la-zGH" secondAttribute="trailing" constant="32" id="ekG-vE-8Gt"/>
+                            <constraint firstItem="pPz-CU-UAE" firstAttribute="top" secondItem="tHi-GO-9h1" secondAttribute="bottom" id="j6o-re-trK"/>
+                            <constraint firstItem="tHi-GO-9h1" firstAttribute="leading" secondItem="j7Q-2d-KTO" secondAttribute="leading" id="myF-ih-frR"/>
+                            <constraint firstAttribute="centerY" secondItem="VLe-la-zGH" secondAttribute="centerY" id="pZK-xX-da5"/>
+                            <constraint firstAttribute="trailing" secondItem="tHi-GO-9h1" secondAttribute="trailing" id="q4i-GL-qFp"/>
+                            <constraint firstItem="VLe-la-zGH" firstAttribute="leading" secondItem="j7Q-2d-KTO" secondAttribute="leading" constant="16" id="tzJ-EM-8x9"/>
+                        </constraints>
+                    </view>
+                    <nil key="simulatedStatusBarMetrics"/>
+                    <connections>
+                        <outlet property="imageView" destination="tHi-GO-9h1" id="rk7-s9-83U"/>
+                        <outlet property="quoteLabel" destination="VLe-la-zGH" id="cQm-3u-eFX"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="NL8-DB-nag" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1399" y="1070"/>
+        </scene>
         <!--Cube Animation-->
         <scene sceneID="QgA-K3-pqZ">
             <objects>
@@ -176,8 +241,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="swift left edge to transition back" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fvf-1w-agh">
-                                <rect key="frame" x="177" y="289" width="246" height="21"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="swipe left edge" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fvf-1w-agh">
+                                <rect key="frame" x="242" y="289" width="117" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
@@ -195,4 +260,7 @@
             <point key="canvasLocation" x="774" y="1070"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="space.png" width="1920" height="1080"/>
+    </resources>
 </document>

@@ -15,6 +15,7 @@ class TransitionsTableView: UITableViewController, UIViewControllerTransitioning
         case detail = "detailViewController"
         case popup = "popupViewController"
         case cube = "cubeDetailViewController"
+        case image = "imageViewController"
     }
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath)
@@ -24,28 +25,26 @@ class TransitionsTableView: UITableViewController, UIViewControllerTransitioning
             
             let detailVC = self.storyboard!.instantiateViewControllerWithIdentifier(ViewControllerIdentifiers.detail.rawValue) as! UIViewController
             detailVC.transitioningDelegate = self
-            detailVC.modalPresentationStyle = UIModalPresentationStyle.Custom
+            detailVC.modalPresentationStyle = .Custom
             self.presentViewController(detailVC, animated: true, completion: nil)
-            
             break
             
         case 1:
             
             let popupVC = self.storyboard!.instantiateViewControllerWithIdentifier(ViewControllerIdentifiers.popup.rawValue) as! UIViewController
-            popupVC.transitioningDelegate = self
-            popupVC.modalPresentationStyle = UIModalPresentationStyle.Custom
             self.presentViewController(popupVC, animated: true, completion: nil)
-            
             break
         
         case 2:
             
             let detailVC = self.storyboard!.instantiateViewControllerWithIdentifier(ViewControllerIdentifiers.cube.rawValue) as! UIViewController
-            // TODO: set transition delegate
-            // set presentation type
-            // set navigation controller delegate
             self.navigationController?.pushViewController(detailVC, animated: true)
+            break
             
+        case 3:
+            
+            let imageVC = self.storyboard!.instantiateViewControllerWithIdentifier(ViewControllerIdentifiers.image.rawValue) as! UIViewController
+            self.presentViewController(imageVC, animated: true, completion: nil)
             break
             
         default:
@@ -55,11 +54,9 @@ class TransitionsTableView: UITableViewController, UIViewControllerTransitioning
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
     }
     
-    
     //MARK: - <UIViewControllerTransitioningDelegate>
     
     lazy var zoomAnimation = ZoomAnimationController()
-    lazy var popupAnimation = PopupAnimationController()
     
     func animationControllerForPresentedController(presented: UIViewController, presentingController presenting: UIViewController, sourceController source: UIViewController) -> UIViewControllerAnimatedTransitioning?
     {
@@ -67,10 +64,7 @@ class TransitionsTableView: UITableViewController, UIViewControllerTransitioning
             self.zoomAnimation.reverseAnimation = false
             return self.zoomAnimation
         }
-        else if presented.isKindOfClass(PopupViewController) {
-            self.popupAnimation.reverseAnimation = false
-            return self.popupAnimation
-        }
+        
         return nil
     }
     
@@ -80,15 +74,7 @@ class TransitionsTableView: UITableViewController, UIViewControllerTransitioning
             self.zoomAnimation.reverseAnimation = true
             return self.zoomAnimation
         }
-        else if dismissed.isKindOfClass(PopupViewController) {
-            self.popupAnimation.reverseAnimation = true
-            return self.popupAnimation
-        }
+        
         return nil
     }
-
-    
-    // $ct6
-    
-    // $ct8
 }

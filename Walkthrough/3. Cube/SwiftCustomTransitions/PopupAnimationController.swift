@@ -2,21 +2,21 @@
 //  PopupAnimationController.swift
 //  SwiftCustomTransitions
 //
-//  Created by Grant Davis on 2/28/15.
+//  Created by Grant Davis on 8/16/15.
 //  Copyright (c) 2015 Grant Davis Interactive, LLC. All rights reserved.
 //
 
 import UIKit
 
-class PopupAnimationController: NSObject, UIViewControllerAnimatedTransitioning
-{
+class PopupAnimationController: NSObject, UIViewControllerAnimatedTransitioning {
+   
     var reverseAnimation: Bool = false
     
     lazy var dimmerView: UIView = {
         let view = UIView(frame: CGRectZero)
         view.backgroundColor = UIColor.blackColor().colorWithAlphaComponent(0.8)
         return view
-    }()
+        }()
     
     
     func transitionDuration(transitionContext: UIViewControllerContextTransitioning) -> NSTimeInterval
@@ -35,7 +35,6 @@ class PopupAnimationController: NSObject, UIViewControllerAnimatedTransitioning
         }
     }
     
-    
     func animateIn(transitionContext: UIViewControllerContextTransitioning)
     {
         let duration = self.transitionDuration(transitionContext)
@@ -45,19 +44,19 @@ class PopupAnimationController: NSObject, UIViewControllerAnimatedTransitioning
         let popupSize = popupViewController.preferredContentSize
         
         let scaleValues: [NSValue] = [
-            NSValue(CATransform3D: CATransform3DMakeScale(0, 0, 1)),
-            NSValue(CATransform3D: CATransform3DMakeScale(1.2, 1.2, 1)),
-            NSValue(CATransform3D: CATransform3DMakeScale(0.9, 0.9, 1)),
+            NSValue(CATransform3D: CATransform3DScale(CATransform3DMakeTranslation(0, -500, 0), 0, 0, 1)),
+            NSValue(CATransform3D: CATransform3DTranslate(CATransform3DMakeScale(1.2, 0.75, 1), 0, 200, 0)),
+            NSValue(CATransform3D: CATransform3DTranslate(CATransform3DMakeScale(0.8, 1.3, 1), 0, -55, 0)),
             NSValue(CATransform3D: CATransform3DIdentity)
         ]
         
         let transformAnimation = CAKeyframeAnimation(keyPath: "transform")
         transformAnimation.duration = duration * 0.7
         transformAnimation.values = scaleValues
-        transformAnimation.keyTimes = [0, 0.4, 0.7, 1]
+        transformAnimation.keyTimes = [0, 0.3, 0.6, 1]
         transformAnimation.fillMode = kCAFillModeBoth
         transformAnimation.timingFunctions = [
-            CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseOut),
+            CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut),
             CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut),
             CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut),
         ]
@@ -118,8 +117,8 @@ class PopupAnimationController: NSObject, UIViewControllerAnimatedTransitioning
         
         let scaleValues: [NSValue] = [
             NSValue(CATransform3D: CATransform3DIdentity),
-            NSValue(CATransform3D: CATransform3DMakeScale(1.2, 1.2, 1)),
-            NSValue(CATransform3D: CATransform3DMakeScale(0, 0, 1)),
+            NSValue(CATransform3D: CATransform3DTranslate(CATransform3DMakeScale(1.2, 0.9, 1), 0, -100, 0)),
+            NSValue(CATransform3D: CATransform3DScale(CATransform3DMakeTranslation(0, 500, 0), 0, 0.5, 1)),
         ]
         
         let transformAnimation = CAKeyframeAnimation(keyPath: "transform")
@@ -128,7 +127,7 @@ class PopupAnimationController: NSObject, UIViewControllerAnimatedTransitioning
         transformAnimation.keyTimes = [0, 0.7, 1]
         transformAnimation.fillMode = kCAFillModeBoth
         transformAnimation.timingFunctions = [
-            CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseOut),
+            CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut),
             CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseIn),
         ]
         transformAnimation.completionBlock = { (finished: Bool) -> Void in
@@ -142,9 +141,8 @@ class PopupAnimationController: NSObject, UIViewControllerAnimatedTransitioning
         }
         
         // its important to set the layer to its final values when adding the animation, without this,
-        // you can get a flicker showing the original values when the animation ends. 
+        // you can get a flicker showing the original values when the animation ends.
         popupView.layer.transform = scaleValues.last!.CATransform3DValue
         popupView.layer.addAnimation(transformAnimation, forKey: "transformAnimation")
     }
-    
 }
