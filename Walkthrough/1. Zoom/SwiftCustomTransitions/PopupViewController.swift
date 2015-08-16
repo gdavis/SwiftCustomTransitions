@@ -8,16 +8,18 @@
 
 import UIKit
 
-class PopupViewController: UIViewController
+class PopupViewController: UIViewController, UIViewControllerTransitioningDelegate
 {
+    //MARK: - UIViewController
+    
     override func viewDidLoad()
     {
         super.viewDidLoad()
         
         self.preferredContentSize = CGSize(width: 200, height: 100)
         self.view.clipsToBounds = true
-        self.view.layer.cornerRadius = 20
-        self.view.layer.borderColor = UIColor.greenColor().CGColor
+        self.view.layer.cornerRadius = 4
+        self.view.layer.borderColor = UIColor.blueColor().CGColor
         self.view.layer.borderWidth = 2
         
         self.view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: Selector("tapped")))
