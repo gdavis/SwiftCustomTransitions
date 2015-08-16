@@ -15,6 +15,7 @@ class TransitionsTableView: UITableViewController, UIViewControllerTransitioning
         case detail = "detailViewController"
         case popup = "popupViewController"
         case cube = "cubeDetailViewController"
+        case image = "imageViewController"
     }
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath)
@@ -24,24 +25,26 @@ class TransitionsTableView: UITableViewController, UIViewControllerTransitioning
             
             let detailVC = self.storyboard!.instantiateViewControllerWithIdentifier(ViewControllerIdentifiers.detail.rawValue) as! UIViewController
             detailVC.transitioningDelegate = self
-            detailVC.modalPresentationStyle = UIModalPresentationStyle.Custom
+            detailVC.modalPresentationStyle = .Custom
             self.presentViewController(detailVC, animated: true, completion: nil)
-            
             break
             
         case 1:
             
             let popupVC = self.storyboard!.instantiateViewControllerWithIdentifier(ViewControllerIdentifiers.popup.rawValue) as! UIViewController
-            // TODO: set delegate and presentation style
             self.presentViewController(popupVC, animated: true, completion: nil)
-            
             break
         
         case 2:
             
             let detailVC = self.storyboard!.instantiateViewControllerWithIdentifier(ViewControllerIdentifiers.cube.rawValue) as! UIViewController
             self.navigationController?.pushViewController(detailVC, animated: true)
+            break
             
+        case 3:
+            
+            let imageVC = self.storyboard!.instantiateViewControllerWithIdentifier(ViewControllerIdentifiers.image.rawValue) as! UIViewController
+            self.presentViewController(imageVC, animated: true, completion: nil)
             break
             
         default:
@@ -50,7 +53,6 @@ class TransitionsTableView: UITableViewController, UIViewControllerTransitioning
         
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
     }
-    
     
     //MARK: - <UIViewControllerTransitioningDelegate>
     
@@ -75,5 +77,4 @@ class TransitionsTableView: UITableViewController, UIViewControllerTransitioning
         
         return nil
     }
-    
 }
