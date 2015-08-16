@@ -33,8 +33,6 @@ class TransitionsTableView: UITableViewController, UIViewControllerTransitioning
         case 1:
             
             let popupVC = self.storyboard!.instantiateViewControllerWithIdentifier(ViewControllerIdentifiers.popup.rawValue) as! UIViewController
-            popupVC.transitioningDelegate = self
-            popupVC.modalPresentationStyle = UIModalPresentationStyle.Custom
             self.presentViewController(popupVC, animated: true, completion: nil)
             
             break
@@ -68,7 +66,6 @@ class TransitionsTableView: UITableViewController, UIViewControllerTransitioning
     //MARK: - <UIViewControllerTransitioningDelegate>
     
     lazy var zoomAnimation = ZoomAnimationController()
-    lazy var popupAnimation = PopupAnimationController()
     lazy var cubeAnimation = CubeAnimationController()
     lazy var spaceAnimation = SpaceAnimationController()
     
@@ -77,10 +74,6 @@ class TransitionsTableView: UITableViewController, UIViewControllerTransitioning
         if presented.isKindOfClass(DetailViewController) {
             self.zoomAnimation.reverseAnimation = false
             return self.zoomAnimation
-        }
-        else if presented.isKindOfClass(PopupViewController) {
-            self.popupAnimation.reverseAnimation = false
-            return self.popupAnimation
         }
         else if presented.isKindOfClass(SpaceViewController) {
             self.spaceAnimation.reverseAnimation = false
@@ -94,10 +87,6 @@ class TransitionsTableView: UITableViewController, UIViewControllerTransitioning
         if dismissed.isKindOfClass(DetailViewController) {
             self.zoomAnimation.reverseAnimation = true
             return self.zoomAnimation
-        }
-        else if dismissed.isKindOfClass(PopupViewController) {
-            self.popupAnimation.reverseAnimation = true
-            return self.popupAnimation
         }
         else if dismissed.isKindOfClass(SpaceViewController) {
             self.spaceAnimation.reverseAnimation = true

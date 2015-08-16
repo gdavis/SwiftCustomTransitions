@@ -8,8 +8,35 @@
 
 import UIKit
 
-class PopupViewController: UIViewController
+class PopupViewController: UIViewController, UIViewControllerTransitioningDelegate
 {
+    required init(coder aDecoder: NSCoder)
+    {
+        super.init(coder: aDecoder)
+        self.transitioningDelegate = self
+        self.modalPresentationStyle = .Custom
+    }
+    
+    
+    //MARK: - <UIViewControllerTransitioningDelegate>
+    
+    lazy var popupAnimation = PopupAnimationController()
+    
+    func animationControllerForPresentedController(presented: UIViewController, presentingController presenting: UIViewController, sourceController source: UIViewController) -> UIViewControllerAnimatedTransitioning?
+    {
+        self.popupAnimation.reverseAnimation = false
+        return self.popupAnimation
+    }
+    
+    func animationControllerForDismissedController(dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning?
+    {
+        self.popupAnimation.reverseAnimation = true
+        return self.popupAnimation
+    }
+    
+    
+    //MARK: - UIViewController
+    
     override func viewDidLoad()
     {
         super.viewDidLoad()
