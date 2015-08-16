@@ -118,7 +118,7 @@ class PopupAnimationController: NSObject, UIViewControllerAnimatedTransitioning
         
         let scaleValues: [NSValue] = [
             NSValue(CATransform3D: CATransform3DIdentity),
-            NSValue(CATransform3D: CATransform3DTranslate(CATransform3DMakeScale(1.2, 0.9, 1), 0, -50, 0)),
+            NSValue(CATransform3D: CATransform3DTranslate(CATransform3DMakeScale(1.2, 0.9, 1), 0, -100, 0)),
             NSValue(CATransform3D: CATransform3DScale(CATransform3DMakeTranslation(0, 500, 0), 0, 0.5, 1)),
         ]
         
