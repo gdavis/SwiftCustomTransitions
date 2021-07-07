@@ -10,28 +10,26 @@ import UIKit
 
 class PopupViewController: UIViewController, UIViewControllerTransitioningDelegate
 {
-    required init(coder aDecoder: NSCoder)
+    required init?(coder aDecoder: NSCoder)
     {
         super.init(coder: aDecoder)
-        self.transitioningDelegate = self
-        self.modalPresentationStyle = .Custom
+        transitioningDelegate = self
+        modalPresentationStyle = .custom
     }
     
     
     //MARK: - <UIViewControllerTransitioningDelegate>
     
     lazy var popupAnimation = PopupAnimationController()
-    
-    func animationControllerForPresentedController(presented: UIViewController, presentingController presenting: UIViewController, sourceController source: UIViewController) -> UIViewControllerAnimatedTransitioning?
-    {
-        self.popupAnimation.reverseAnimation = false
-        return self.popupAnimation
+
+    func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        popupAnimation.reverseAnimation = false
+        return popupAnimation
     }
-    
-    func animationControllerForDismissedController(dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning?
-    {
-        self.popupAnimation.reverseAnimation = true
-        return self.popupAnimation
+
+    func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        popupAnimation.reverseAnimation = true
+        return popupAnimation
     }
     
     
@@ -41,17 +39,17 @@ class PopupViewController: UIViewController, UIViewControllerTransitioningDelega
     {
         super.viewDidLoad()
         
-        self.preferredContentSize = CGSize(width: 200, height: 100)
-        self.view.clipsToBounds = true
-        self.view.layer.cornerRadius = 4
-        self.view.layer.borderColor = UIColor.blueColor().CGColor
-        self.view.layer.borderWidth = 2
+        preferredContentSize = CGSize(width: 200, height: 100)
+        view.clipsToBounds = true
+        view.layer.cornerRadius = 4
+        view.layer.borderColor = UIColor.blue.cgColor
+        view.layer.borderWidth = 2
         
-        self.view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: Selector("tapped")))
+        view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(tapped)))
     }
     
-    func tapped()
+    @objc func tapped()
     {
-        self.dismissViewControllerAnimated(true, completion: nil)
+        dismiss(animated: true, completion: nil)
     }
 }

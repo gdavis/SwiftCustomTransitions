@@ -14,30 +14,29 @@ class ImageViewController: UIViewController {
     @IBOutlet weak var quoteLabel: UILabel!
     
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        self.quoteLabel.alpha = 0
+        quoteLabel.alpha = 0
     }
     
-    override func viewDidAppear(animated: Bool) {
+    override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        UIView.animateWithDuration(0.3, animations: { () -> Void in
+        UIView.animate(withDuration: 0.3, animations: { [unowned self] in
             self.quoteLabel.alpha = 1
         })
     }
-    
-    override func preferredStatusBarStyle() -> UIStatusBarStyle {
-        return .LightContent
+
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
     }
-    
-    override func touchesEnded(touches: Set<NSObject>, withEvent event: UIEvent) {
-        
-        UIView.animateWithDuration(0.15, animations: { () -> Void in
+
+    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+        UIView.animate(withDuration: 0.15, animations: { [unowned self] in
             self.quoteLabel.alpha = 0
-            }) { (finished: Bool) -> Void in
-                self.dismissViewControllerAnimated(true, completion: nil)
+            }) { [unowned self] (finished: Bool) -> Void in
+            self.dismiss(animated: true, completion: nil)
         }
     }
 }

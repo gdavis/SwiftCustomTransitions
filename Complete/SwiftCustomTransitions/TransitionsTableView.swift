@@ -17,46 +17,41 @@ class TransitionsTableView: UITableViewController, UIViewControllerTransitioning
         case cube = "cubeDetailViewController"
         case image = "imageViewController"
     }
-    
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath)
-    {
+
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         switch (indexPath.row) {
         case 0:
             
-            let detailVC = self.storyboard!.instantiateViewControllerWithIdentifier(ViewControllerIdentifiers.detail.rawValue) as! UIViewController
+            let detailVC = storyboard!.instantiateViewController(withIdentifier: ViewControllerIdentifiers.detail.rawValue)
             detailVC.transitioningDelegate = self
-            detailVC.modalPresentationStyle = UIModalPresentationStyle.Custom
-            self.presentViewController(detailVC, animated: true, completion: nil)
-            break
-            
+            detailVC.modalPresentationStyle = UIModalPresentationStyle.custom
+            present(detailVC, animated: true, completion: nil)
+
         case 1:
             
-            let popupVC = self.storyboard!.instantiateViewControllerWithIdentifier(ViewControllerIdentifiers.popup.rawValue) as! UIViewController
-            self.presentViewController(popupVC, animated: true, completion: nil)
-            break
-        
+            let popupVC = storyboard!.instantiateViewController(withIdentifier: ViewControllerIdentifiers.popup.rawValue)
+            present(popupVC, animated: true, completion: nil)
+
         case 2:
             
-            let detailVC = self.storyboard!.instantiateViewControllerWithIdentifier(ViewControllerIdentifiers.cube.rawValue) as! UIViewController
+            let detailVC = storyboard!.instantiateViewController(withIdentifier: ViewControllerIdentifiers.cube.rawValue)
             detailVC.transitioningDelegate = self
-            detailVC.modalPresentationStyle = UIModalPresentationStyle.Custom
-            self.navigationController?.delegate = self
-            self.navigationController?.pushViewController(detailVC, animated: true)
-            break
-            
+            detailVC.modalPresentationStyle = UIModalPresentationStyle.custom
+            navigationController?.delegate = self
+            navigationController?.pushViewController(detailVC, animated: true)
+
         case 3:
             
-            let imageVC = self.storyboard!.instantiateViewControllerWithIdentifier(ViewControllerIdentifiers.image.rawValue) as! UIViewController
+            let imageVC = storyboard!.instantiateViewController(withIdentifier: ViewControllerIdentifiers.image.rawValue)
             imageVC.transitioningDelegate = self
-            imageVC.modalPresentationStyle = UIModalPresentationStyle.Custom
-            self.presentViewController(imageVC, animated: true, completion: nil)
-            break
-            
+            imageVC.modalPresentationStyle = UIModalPresentationStyle.custom
+            present(imageVC, animated: true, completion: nil)
+
         default:
             break
         }
         
-        tableView.deselectRowAtIndexPath(indexPath, animated: true)
+        tableView.deselectRow(at: indexPath, animated: true)
     }
     
     
@@ -65,58 +60,52 @@ class TransitionsTableView: UITableViewController, UIViewControllerTransitioning
     lazy var zoomAnimation = ZoomAnimationController()
     lazy var cubeAnimation = CubeAnimationController()
     lazy var imageAnimation = ImageAnimationController()
-    
-    func animationControllerForPresentedController(presented: UIViewController, presentingController presenting: UIViewController, sourceController source: UIViewController) -> UIViewControllerAnimatedTransitioning?
-    {
-        if presented.isKindOfClass(DetailViewController) {
-            self.zoomAnimation.reverseAnimation = false
-            return self.zoomAnimation
+
+    func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        if presented is DetailViewController {
+            zoomAnimation.reverseAnimation = false
+            return zoomAnimation
         }
-        else if presented.isKindOfClass(ImageViewController) {
-            self.imageAnimation.reverseAnimation = false
-            return self.imageAnimation
+        else if presented is ImageViewController {
+            imageAnimation.reverseAnimation = false
+            return imageAnimation
         }
         return nil
     }
-    
-    func animationControllerForDismissedController(dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning?
-    {
-        if dismissed.isKindOfClass(DetailViewController) {
-            self.zoomAnimation.reverseAnimation = true
-            return self.zoomAnimation
+
+    func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        if dismissed is DetailViewController {
+            zoomAnimation.reverseAnimation = true
+            return zoomAnimation
         }
-        else if dismissed.isKindOfClass(ImageViewController) {
-            self.imageAnimation.reverseAnimation = true
-            return self.imageAnimation
+        else if dismissed is ImageViewController {
+            imageAnimation.reverseAnimation = true
+            return imageAnimation
         }
         return nil
     }
 
     
     //MARK: - UINavigationControllerDelegate
-    
-    func navigationController(navigationController: UINavigationController, animationControllerForOperation operation: UINavigationControllerOperation, fromViewController fromVC: UIViewController, toViewController toVC: UIViewController) -> UIViewControllerAnimatedTransitioning?
+
+    func navigationController(_ navigationController: UINavigationController, animationControllerFor operation: UINavigationController.Operation, from fromVC: UIViewController, to toVC: UIViewController) -> UIViewControllerAnimatedTransitioning?
     {
         switch (operation) {
+        case .pop:
+            cubeAnimation.reverseAnimation = true
 
-        case .Pop:
-            self.cubeAnimation.reverseAnimation = true
-            break
-            
         default:
-            self.cubeAnimation.reverseAnimation = false
-            break
+            cubeAnimation.reverseAnimation = false
         }
         
-        self.cubeAnimation.interactivePopGestureRecognizer = navigationController.interactivePopGestureRecognizer
+        cubeAnimation.interactivePopGestureRecognizer = navigationController.interactivePopGestureRecognizer
         
-        return self.cubeAnimation
+        return cubeAnimation
     }
-    
-    func navigationController(navigationController: UINavigationController, interactionControllerForAnimationController animationController: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning?
-    {
-        if self.cubeAnimation.interactive {
-            return self.cubeAnimation
+
+    func navigationController(_ navigationController: UINavigationController, interactionControllerFor animationController: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
+        if cubeAnimation.interactive {
+            return cubeAnimation
         }
         return nil
     }

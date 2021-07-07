@@ -14,7 +14,7 @@ class CubeDetailViewController: UIViewController
     {
         super.viewDidLoad()
 
-        self.view.layer.borderColor = UIColor.redColor().CGColor
-        self.view.layer.borderWidth = 4.0
+        view.layer.borderColor = UIColor.red.cgColor
+        view.layer.borderWidth = 4.0
     }
 }

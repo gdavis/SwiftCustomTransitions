@@ -10,8 +10,8 @@ import UIKit
 
 extension CAAnimation {
     
-    typealias StartBlock = ((Void) -> Void)
-    typealias CompletionBlock = ((finished: Bool) -> Void)
+    typealias StartBlock = (() -> Void)
+    typealias CompletionBlock = ((_ finished: Bool) -> Void)
     
     private struct Blocks {
         static var startBlocks = Dictionary<CAAnimation, StartBlock>()
@@ -37,22 +37,21 @@ extension CAAnimation {
             self.delegate = self
         }
     }
-    
-    
-    public override func animationDidStart(anim: CAAnimation!)
-    {
+}
+
+extension CAAnimation: CAAnimationDelegate {
+    public func animationDidStart(_ anim: CAAnimation) {
         if let block = self.startBlock {
             block()
-            Blocks.startBlocks.removeValueForKey(self)
+            Blocks.startBlocks.removeValue(forKey: self)
+            Blocks.startBlocks.removeValue(forKey: self)
         }
     }
-    
-    
-    public override func animationDidStop(anim: CAAnimation!, finished flag: Bool)
-    {
+
+    public func animationDidStop(_ anim: CAAnimation, finished flag: Bool) {
         if let block = self.completionBlock {
-            block(finished: flag)
-            Blocks.completionBlocks.removeValueForKey(self)
+            block(flag)
+            Blocks.completionBlocks.removeValue(forKey: self)
         }
     }
 }
